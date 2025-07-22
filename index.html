@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Onice Technologies</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+  <link rel="stylesheet" href="css/style.css" />
+
+    <!-- Bootstrap + AOS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+</head>
+<body class="bg-dark text-light">
+
+
+ 
+ <!-- 🔵 Loading Screen -->
+  <div id="loader">
+    <img src="images/icon2.png" alt="Onice Logo" class="glow-logo" />
+  </div>
+
+  <!-- 📌 Sticky Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-black fixed-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand" href="#hero">
+        <img src="images/icon2.png" width="40" alt="Logo" class="me-2" />
+        Tech
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="#solutions">Solutions</a></li>
+          <li class="nav-item"><a class="nav-link" href="#why-choose">Why Our Tech</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+   <!-- Dark/Light Toggle -->
+<div class="theme-toggle position-fixed top-0 end-0 m-3 z-3">
+  <button id="themeToggle" class="btn btn-sm btn-outline-light">🌙</button>
+</div>
+  <!-- 💥 Hero Section -->
+  <section id="hero" class="d-flex flex-column justify-content-center align-items-center text-center vh-100">
+    <img src="images/icon2.png" alt="Onice Logo" class="mb-4 glow-logo" style="width: 120px;" />
+    <h1 class="display-4">ONICE TECHNOLOGIES</h1>
+    <!-- Typing Tagline -->
+    <p class="lead" id="typedText" data-phrases='["Innovate.", "Integrate.", "Inspire."]'></p>
+    <a href="#about" class="btn btn-outline-primary mt-3">Explore More</a>
+  </section>
+ <section id="about" class="py-5">
+  <div class="container text-center">
+    <!-- Section Title -->
+    <h2 class="display-5 fw-bold mb-4 text-white">About Us</h2>
+    <p class="lead text-light mb-5">
+       At Onice Technologies, our journey began with a bold vision to transform the way businesses harness the power of technology. Founded on the principles of innovation, integrity, and excellence, we have grown from a passionate team of tech enthusiasts into a trusted partner for companies seeking cutting-edge digital solutions. Our story is one of relentless pursuit—pursuit of creativity, smarter solutions, and meaningful impact. We believe technology should empower, simplify, and inspire, which drives us to craft tailor-made software and services that elevate businesses to new heights. With every project, we combine deep expertise and forward-thinking strategies to turn challenges into opportunities, helping our clients thrive in an ever-evolving digital world.
+    </p>
+
+    <!-- Glassmorphism Cards -->
+    <div class="row g-4">
+      <!-- Vision -->
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="glass-card p-4 h-100">
+          <h4 class="text-info mb-3">Vision</h4>
+          <p class="text-light">
+            To redefine the future through advanced, user-focused technology that inspires progress and innovation worldwide.
+          </p>
+        </div>
+      </div>
+
+      <!-- Mission -->
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="glass-card p-4 h-100">
+          <h4 class="text-info mb-3">Mission</h4>
+          <p class="text-light">
+            We aim to build transformative digital solutions that are fast, scalable, and tailored to empower businesses and people.
+          </p>
+        </div>
+      </div>
+
+      <!-- Values -->
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+        <div class="glass-card p-4 h-100">
+          <h4 class="text-info mb-3">Values</h4>
+          <p class="text-light">
+            Innovation. Integrity. Excellence. Collaboration. We believe in doing great work with purpose and passion.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Solutions -->
+<section id="solutions" style="padding: 60px 20px; text-align:center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+  <div class="container" style="max-width: 1100px; margin: 0 auto;">
+    <h2 style="font-size: 2.8rem; font-weight: 700; margin-bottom: 0.3em; color: white;">Our Solutions</h2>
+    <p style="color: white; font-weight: 500; margin-bottom: 3rem;">Innovative technology tailored to your business needs</p>
+    <div class="cards-wrapper" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+      
+      <div class="glass-card" style="color: #e0f7ff; display: flex; flex-direction: column; border-radius: 16px; overflow: hidden;">
+        <img src="images/images.jpg" alt="Custom Software" style="width: 100%; height: 180px; object-fit: cover;"/>
+        <div style="padding: 20px;">
+          <h3 style="font-weight: 600; margin-bottom: 12px;">Software Development</h3>
+          <p>Crafting bespoke software solutions designed to fit your unique business processes perfectly.</p>
+        </div>
+      </div>
+      
+      <div class="glass-card" style="color: #e0f7ff; display: flex; flex-direction: column; border-radius: 16px; overflow: hidden;">
+        <img src="images/images (2).jpg" alt="Cloud Integration" style="width: 100%; height: 180px; object-fit: cover;"/>
+        <div style="padding: 20px;">
+          <h3 style="font-weight: 600; margin-bottom: 12px;">IT Systems & Cloud Services</h3>
+          <p>Comprehensive support across Linux systems, Windows servers, cloud platforms, and internal IT infrastructure. We ensure uptime, scalability, and security.</p>
+        </div>
+      </div>
+      
+      <div class="glass-card" style="color: #e0f7ff; display: flex; flex-direction: column; border-radius: 16px; overflow: hidden;">
+        <img src="images/web-development.jpg" alt="Cybersecurity" style="width: 100%; height: 180px; object-fit: cover;"/>
+        <div style="padding: 20px;">
+          <h3 style="font-weight: 600; margin-bottom: 12px;">Web Development</h3>
+          <p>Modern, responsive websites that reflect your brand and drive results.</p>
+        </div>
+      </div>
+      
+      <div class="glass-card" style="color: #e0f7ff; display: flex; flex-direction: column; border-radius: 16px; overflow: hidden;">
+        <img src="images/best-time-hardware-repairs-1024x682.jpg" alt="AI & Automation" style="width: 100%; height: 180px; object-fit: cover;"/>
+        <div style="padding: 20px;">
+          <h3 style="font-weight: 600; margin-bottom: 12px;">Hardware Installation</h3>
+          <p>Professional setup of hardware and infrastructure for your environment.</p>
+        </div>
+      </div>
+      
+      <div class="glass-card" style="color: #e0f7ff; display: flex; flex-direction: column; border-radius: 16px; overflow: hidden;">
+        <img src="images/IT-Consulting.jpg" alt="AI & Automation" style="width: 100%; height: 180px; object-fit: cover;"/>
+        <div style="padding: 20px;">
+          <h3 style="font-weight: 600; margin-bottom: 12px;">IT Consulting</h3>
+          <p>Expert insights, strategic planning, and audits tailored for growth.</p>
+        </div>
+      </div>
+
+      
+    </div>
+  </div>
+</section>
+
+  <!-- Why Onice -->
+  <section id="why-choose" style="padding: 60px 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(to bottom right, rgba(0, 174, 238, 0.05), rgba(255, 255, 255, 0.02)); backdrop-filter: blur(2px); text-align: center;">
+  <div class="container" style="max-width: 1000px; margin: 0 auto;">
+    <h2 style="font-size: 2.8rem; font-weight: 700; color: white; margin-bottom: 0.5em;">Why Choose Onice Technologies</h2>
+    <p style="color: white; font-weight: 500; margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+       We bring creativity, care, and commitment to every project, delivering solutions that empower your business to thrive.
+    </p>
+    
+    <div class="cards-wrapper" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+      
+      <div class="glass-card" style="padding: 30px; color: #e0f7ff; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 4px 30px rgba(0, 174, 238, 0.2); transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: default;">
+        <div style="font-size: 3rem; margin-bottom: 20px;">🚀</div>
+        <h3 style="margin-bottom: 12px; font-weight: 600;">Innovative Solutions</h3>
+        <p>We embrace fresh ideas and innovative technology to create unique solutions tailored to your needs.</p>
+      </div>
+      
+      <div class="glass-card" style="padding: 30px; color: #e0f7ff; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 4px 30px rgba(0, 174, 238, 0.2); transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: default;">
+        <div style="font-size: 3rem; margin-bottom: 20px;">🤝</div>
+        <h3 style="margin-bottom: 12px; font-weight: 600;">Client-Centric Approach</h3>
+        <p>Your goals are our priority — we collaborate closely to ensure your success.</p>
+      </div>
+      
+      <div class="glass-card" style="padding: 30px; color: #e0f7ff; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 4px 30px rgba(0, 174, 238, 0.2); transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: default;">
+        <div style="font-size: 3rem; margin-bottom: 20px;">💡</div>
+        <h3 style="margin-bottom: 12px; font-weight: 600;">Expert Team</h3>
+        <p>Our team brings deep knowledge and passion, ensuring quality and reliability in every project.</p>
+      </div>
+      
+      <div class="glass-card" style="padding: 30px; color: #e0f7ff; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 4px 30px rgba(0, 174, 238, 0.2); transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: default;">
+        <div style="font-size: 3rem; margin-bottom: 20px;">⚙️</div>
+        <h3 style="margin-bottom: 12px; font-weight: 600;">Reliable Support</h3>
+        <p>We offer ongoing support and maintenance to keep your technology running smoothly.</p>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="display-5 fw-bold text-light">Contact Us</h2>
+      <p style="color: white; font-weight: 500; margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto;">We'd love to hear from you. Reach out anytime!</p>
+    </div>
+
+    <div class="row g-4">
+      <!-- Contact Details -->
+      <div class="col-md-6">
+  <div class="glass-card p-4 h-100 d-flex flex-column justify-content-between rounded-4 shadow-sm">
+    <div>
+      <h5 class="text-light fw-bold mb-2">🏢 Head Office</h5>
+      <p class="text mb-4">Midrand, Gauteng, South Africa</p>
+
+      <h5 class="text-light fw-bold mb-2">📞 Phone</h5>
+      <p class="text mb-4">+27 12 345 6789</p>
+
+      <h5 class="text-light fw-bold mb-2">✉️ Email</h5>
+      <p class="text mb-4">info@onicetech.co.za</p>
+
+      <h5 class="text-light fw-bold mb-3">🌐 Follow Us</h5>
+      <div class="d-flex gap-3">
+        <a href="#" class="icon-link"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="icon-link"><i class="bi bi-twitter-x"></i></a>
+        <a href="#" class="icon-link"><i class="bi bi-linkedin"></i></a>
+        <a href="#" class="icon-link"><i class="bi bi-instagram"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+      <!-- Google Map -->
+      <div class="col-md-6">
+        <div class="glass-card p-2 h-100">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14329.072408201906!2d28.1226133!3d-25.9860768!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e9574d2b4e0cd35%3A0xa8e4bfa70b9df7a!2sMidrand%2C%20Gauteng!5e0!3m2!1sen!2sza!4v1721395212345!5m2!1sen!2sza"
+            width="100%" height="100%" style="border:0; border-radius: 12px;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- 🦶 Footer -->
+  <footer class="bg-dark text-center py-3">
+    <small>&copy; <span id="currentYear"></span> Onice Technologies. All rights reserved.</small>
+  </footer>
+
+<div id="cookie-consent" class="glass-card text-light p-3 rounded shadow-lg" style="position: fixed; bottom: 20px; left: 20px; right: 20px; max-width: 400px; margin: auto; z-index: 9999; backdrop-filter: blur(10px); background: rgba(0, 0, 0, 0.6); display: none;">
+  <p class="mb-2" style="font-size: 14px;">
+    🍪 We use cookies to ensure you get the best experience on our website.
+  </p>
+  <div class="d-flex justify-content-end gap-2">
+    <button class="btn btn-sm btn-outline-light" onclick="rejectCookies()">Reject</button>
+    <button class="btn btn-sm btn-success" onclick="acceptCookies()">Accept</button>
+  </div>
+</div>
+
+
+<script>
+  function acceptCookies() {
+    localStorage.setItem("cookieConsent", "accepted");
+    document.getElementById("cookie-consent").style.display = "none";
+  }
+
+  function rejectCookies() {
+    localStorage.setItem("cookieConsent", "rejected");
+    document.getElementById("cookie-consent").style.display = "none";
+  }
+
+  window.onload = function () {
+    const consent = localStorage.getItem("cookieConsent");
+    if (!consent) {
+      document.getElementById("cookie-consent").style.display = "block";
+    }
+  };
+</script>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init();
+
+    // Loading screen
+    window.addEventListener("load", () => {
+      const loader = document.getElementById("loader");
+      loader.classList.add("fade-out");
+      setTimeout(() => loader.style.display = "none", 1000);
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a.nav-link').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+  <script>
+  AOS.init();
+
+  // Typing Effect
+  const phrases = JSON.parse(document.getElementById('typedText').getAttribute('data-phrases'));
+  let i = 0, j = 0, currentPhrase = [], isDeleting = false, isEnd = false;
+
+  function loop() {
+    const typed = document.getElementById('typedText');
+    isEnd = false;
+    typed.innerHTML = currentPhrase.join('');
+
+    if (i < phrases.length) {
+      if (!isDeleting && j <= phrases[i].length) {
+        currentPhrase.push(phrases[i][j]);
+        j++;
+      }
+
+      if (isDeleting && j > 0) {
+        currentPhrase.pop();
+        j--;
+      }
+
+      if (j === phrases[i].length) {
+        isEnd = true;
+        isDeleting = true;
+        setTimeout(loop, 1200);
+        return;
+      }
+
+      if (isDeleting && j === 0) {
+        currentPhrase = [];
+        isDeleting = false;
+        i = (i + 1) % phrases.length;
+      }
+    }
+    const speed = isEnd ? 1500 : isDeleting ? 50 : 100;
+    setTimeout(loop, speed);
+  }
+  loop();
+
+  // Theme Toggle
+  const toggleBtn = document.getElementById("themeToggle");
+  toggleBtn.addEventListener("click", () => {
+    document.body.classList.toggle("light-theme");
+    toggleBtn.textContent =
+      document.body.classList.contains("light-theme") ? "☀️" : "🌙";
+  });
+
+  // Smooth scroll (preserve existing)
+  document.querySelectorAll('a.nav-link').forEach(link => {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  // Loader (if you kept it)
+  window.addEventListener("load", () => {
+    const loader = document.getElementById("loader");
+    if (loader) {
+      loader.classList.add("fade-out");
+      setTimeout(() => loader.style.display = "none", 1000);
+    }
+  });
+</script>
+<script>
+  document.getElementById("currentYear").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
