@@ -1999,40 +1999,732 @@
 }
 
     /* Why Choose Section */
-    .why-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-    }
-
-    .why-card {
-      text-align: center;
-    }
-
-    .why-card-icon {
-      width: 80px;
-      height: 80px;
-      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.5rem;
-      margin: 0 auto 1.5rem;
-      box-shadow: 0 10px 30px rgba(0, 174, 254, 0.3);
-    }
-
-    .why-card h4 {
-      font-size: 1.3rem;
-      color: #fff;
-      margin-bottom: 1rem;
-      font-weight: 600;
-    }
-
-    .why-card p {
-      color: var(--text-muted);
-      line-height: 1.7;
-    }
+   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+:root {
+  --ice: #00AEFE;
+  --cryo: #00D4FF;
+  --green: #00ff88;
+  --amber: #ffb800;
+  --void: #030810;
+  --text-body: rgba(175,208,232,0.7);
+  --text-muted: rgba(110,155,185,0.45);
+  --spine-w: 2px;
+}
+ 
+body {
+  background: var(--void);
+  font-family: 'Syne', sans-serif;
+  color: #fff;
+  overflow-x: hidden;
+}
+ 
+/* ══════════════════════════════
+   STAR FIELD CANVAS
+══════════════════════════════ */
+#star-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+ 
+/* ══════════════════════════════
+   SECTION SHELL
+══════════════════════════════ */
+#process {
+  position: relative;
+  padding: 130px 0 120px;
+  overflow: hidden;
+  z-index: 1;
+}
+ 
+/* Nebula glow left */
+#process::before {
+  content: '';
+  position: absolute;
+  top: 20%; left: -200px;
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(0,174,254,0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+ 
+/* Nebula glow right */
+#process::after {
+  content: '';
+  position: absolute;
+  bottom: 10%; right: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(0,212,255,0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+ 
+.process-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 3rem;
+  position: relative;
+  z-index: 2;
+}
+ 
+/* ══════════════════════════════
+   HEADER
+══════════════════════════════ */
+.proc-header {
+  text-align: center;
+  margin-bottom: 5rem;
+  position: relative;
+}
+ 
+.proc-transmission {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem;
+  font-weight: 300;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(0,174,254,0.45);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+ 
+.proc-transmission::before,
+.proc-transmission::after {
+  content: '';
+  width: 60px; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0,174,254,0.4));
+}
+.proc-transmission::after {
+  background: linear-gradient(90deg, rgba(0,174,254,0.4), transparent);
+}
+ 
+.proc-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  letter-spacing: 0.05em;
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+ 
+.proc-title .t-plain { color: rgba(255,255,255,0.85); }
+.proc-title .t-glow {
+  background: linear-gradient(135deg, #fff 0%, var(--cryo) 50%, var(--ice) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+ 
+.proc-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-body);
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.85;
+}
+ 
+/* Coordinates display */
+.proc-coords {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+ 
+.coord {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.55rem;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  color: rgba(0,174,254,0.3);
+  text-transform: uppercase;
+}
+ 
+.coord-val {
+  color: rgba(0,212,255,0.5);
+  margin-left: 0.4rem;
+}
+ 
+/* ══════════════════════════════
+   MISSION PROGRESS BAR
+══════════════════════════════ */
+.mission-progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 5rem;
+  position: relative;
+}
+ 
+.mp-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  position: relative;
+  z-index: 2;
+}
+ 
+.mp-node {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0,174,254,0.25);
+  background: var(--void);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  color: rgba(0,174,254,0.4);
+  transition: all 0.5s ease;
+  position: relative;
+}
+ 
+.mp-node.active {
+  border-color: var(--ice);
+  background: rgba(0,174,254,0.1);
+  color: var(--cryo);
+  box-shadow: 0 0 12px rgba(0,174,254,0.4);
+}
+ 
+.mp-node.active::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,174,254,0.2);
+  animation: mpRipple 2s ease-in-out infinite;
+}
+ 
+@keyframes mpRipple {
+  0%   { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+ 
+.mp-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.45rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(0,174,254,0.3);
+  white-space: nowrap;
+}
+ 
+.mp-step.active .mp-label { color: rgba(0,212,255,0.6); }
+ 
+.mp-connector {
+  flex: 1;
+  height: 1px;
+  background: rgba(0,174,254,0.12);
+  min-width: 30px;
+  max-width: 100px;
+  position: relative;
+  overflow: hidden;
+}
+ 
+.mp-connector.active {
+  background: rgba(0,174,254,0.3);
+}
+ 
+.mp-connector.active::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, var(--cryo), transparent);
+  animation: connFlow 2s linear infinite;
+}
+ 
+@keyframes connFlow {
+  0%   { left: -100%; }
+  100% { left: 200%; }
+}
+ 
+/* ══════════════════════════════
+   TIMELINE SPINE
+══════════════════════════════ */
+.timeline-wrap {
+  position: relative;
+}
+ 
+/* The spine */
+.timeline-spine {
+  position: absolute;
+  left: 50%;
+  top: 0; bottom: 0;
+  transform: translateX(-50%);
+  width: var(--spine-w);
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0,174,254,0.15) 5%,
+    rgba(0,174,254,0.25) 50%,
+    rgba(0,174,254,0.15) 95%,
+    transparent 100%
+  );
+}
+ 
+/* Energy particle on spine */
+.spine-particle {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px; height: 24px;
+  background: linear-gradient(180deg, transparent, var(--cryo), transparent);
+  border-radius: 3px;
+  animation: particleDrop 3s linear infinite;
+  box-shadow: 0 0 8px var(--ice);
+}
+ 
+.spine-particle:nth-child(2) { animation-delay: 1s; }
+.spine-particle:nth-child(3) { animation-delay: 2s; }
+ 
+@keyframes particleDrop {
+  0%   { top: -5%;  opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { top: 105%; opacity: 0; }
+}
+ 
+/* ══════════════════════════════
+   PHASE ROW
+══════════════════════════════ */
+.phase-row {
+  display: grid;
+  grid-template-columns: 1fr 80px 1fr;
+  align-items: center;
+  margin-bottom: 3.5rem;
+  position: relative;
+}
+ 
+/* Odd rows: card left, empty right */
+.phase-row.left  .phase-card { grid-column: 1; }
+.phase-row.left  .phase-node { grid-column: 2; }
+.phase-row.left  .phase-empty { grid-column: 3; }
+ 
+/* Even rows: empty left, card right */
+.phase-row.right .phase-empty { grid-column: 1; }
+.phase-row.right .phase-node  { grid-column: 2; }
+.phase-row.right .phase-card  { grid-column: 3; }
+ 
+/* Node column */
+.phase-node {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 3;
+}
+ 
+.node-orb {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: var(--void);
+  border: 1.5px solid rgba(0,174,254,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.6s cubic-bezier(0.23,1,0.32,1);
+  position: relative;
+}
+ 
+.node-orb svg {
+  width: 20px; height: 20px;
+  stroke: rgba(0,174,254,0.4);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.4s ease;
+}
+ 
+/* Rings around node */
+.node-orb::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,174,254,0.08);
+  transition: border-color 0.4s ease;
+}
+ 
+.node-orb::after {
+  content: '';
+  position: absolute;
+  inset: -16px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,174,254,0.04);
+  transition: border-color 0.4s ease;
+}
+ 
+/* Activated node */
+.phase-row.activated .node-orb {
+  border-color: var(--ice);
+  background: rgba(0,174,254,0.1);
+  box-shadow: 0 0 20px rgba(0,174,254,0.4), 0 0 40px rgba(0,174,254,0.15);
+}
+ 
+.phase-row.activated .node-orb svg {
+  stroke: var(--cryo);
+}
+ 
+.phase-row.activated .node-orb::before {
+  border-color: rgba(0,174,254,0.2);
+  animation: orbRing1 3s ease-in-out infinite;
+}
+ 
+.phase-row.activated .node-orb::after {
+  border-color: rgba(0,174,254,0.1);
+  animation: orbRing2 3s ease-in-out infinite 0.5s;
+}
+ 
+@keyframes orbRing1 {
+  0%,100% { transform: scale(1);   opacity: 0.8; }
+  50%      { transform: scale(1.1); opacity: 0.3; }
+}
+ 
+@keyframes orbRing2 {
+  0%,100% { transform: scale(1);   opacity: 0.5; }
+  50%      { transform: scale(1.15); opacity: 0.15; }
+}
+ 
+/* Connector beam from node to card */
+.phase-connector {
+  position: absolute;
+  top: 50%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(0,174,254,0.4), transparent);
+  transform: translateY(-50%);
+  width: 0;
+  transition: width 0.8s cubic-bezier(0.23,1,0.32,1) 0.3s;
+}
+ 
+.phase-row.left  .phase-connector {
+  right: calc(100% - 52px);
+  left: auto;
+  background: linear-gradient(270deg, rgba(0,174,254,0.4), transparent);
+  width: 0;
+}
+ 
+.phase-row.right .phase-connector {
+  left: calc(100% - 52px);
+  background: linear-gradient(90deg, rgba(0,174,254,0.4), transparent);
+  width: 0;
+}
+ 
+.phase-row.activated.left  .phase-connector { width: 60px; }
+.phase-row.activated.right .phase-connector { width: 60px; }
+ 
+/* ══════════════════════════════
+   PHASE CARD
+══════════════════════════════ */
+.phase-card {
+  background: rgba(4, 11, 22, 0.9);
+  border: 1px solid rgba(0,174,254,0.08);
+  border-radius: 10px;
+  padding: 1.8rem 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.5s ease, background 0.5s ease;
+  opacity: 0.4;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.23,1,0.32,1), border-color 0.5s ease;
+}
+ 
+.phase-row.right .phase-card { text-align: left; }
+.phase-row.left  .phase-card { text-align: right; }
+ 
+.phase-row.left  .phase-card .card-tags { justify-content: flex-end; }
+.phase-row.left  .phase-card .phase-checklist li { justify-content: flex-end; }
+.phase-row.left  .phase-card .phase-checklist li::before { order: 2; margin-left: 0.6rem; margin-right: 0; }
+ 
+/* Ghost big phase number */
+.phase-card::before {
+  content: attr(data-phase);
+  position: absolute;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 9rem;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(0,174,254,0.05);
+  line-height: 1;
+  bottom: -1.5rem;
+  pointer-events: none;
+  user-select: none;
+  transition: -webkit-text-stroke-color 0.5s ease;
+}
+ 
+.phase-row.left  .phase-card::before { right: 1rem; }
+.phase-row.right .phase-card::before { left: 1rem; }
+ 
+/* Top glow line */
+.phase-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--ice), transparent);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+ 
+/* ACTIVATED STATE */
+.phase-row.activated .phase-card {
+  opacity: 1;
+  transform: translateY(0);
+  border-color: rgba(0,174,254,0.22);
+  background: rgba(4, 14, 28, 0.95);
+}
+ 
+.phase-row.activated .phase-card::after { opacity: 1; }
+.phase-row.activated .phase-card::before {
+  -webkit-text-stroke-color: rgba(0,174,254,0.1);
+}
+ 
+/* Phase label */
+.phase-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.52rem;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(0,174,254,0.45);
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+ 
+.phase-row.left .phase-label { justify-content: flex-end; }
+ 
+.phase-label-dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--cryo);
+  box-shadow: 0 0 6px var(--ice);
+  animation: dp 2s ease-in-out infinite;
+}
+ 
+@keyframes dp {
+  0%,100%{opacity:1}50%{opacity:0.3}
+}
+ 
+.phase-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  letter-spacing: 0.04em;
+  color: #fff;
+  line-height: 1.05;
+  margin-bottom: 0.7rem;
+}
+ 
+.phase-desc {
+  font-size: 0.84rem;
+  line-height: 1.8;
+  color: var(--text-body);
+  margin-bottom: 1.1rem;
+  position: relative;
+  z-index: 1;
+}
+ 
+/* Checklist */
+.phase-checklist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+}
+ 
+.phase-checklist li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.78rem;
+  color: rgba(175,208,232,0.65);
+  line-height: 1.4;
+}
+ 
+.phase-checklist li::before {
+  content: '';
+  flex-shrink: 0;
+  width: 12px; height: 12px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2 6l2.5 2.5L10 3.5' stroke='%2300D4FF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+ 
+/* Duration badge */
+.phase-duration {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.55rem;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(0,212,255,0.5);
+  background: rgba(0,174,254,0.05);
+  border: 1px solid rgba(0,174,254,0.12);
+  padding: 4px 10px;
+  border-radius: 3px;
+  margin-top: 0.3rem;
+}
+ 
+/* Card tags */
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.8rem;
+}
+ 
+.ctag {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(0,174,254,0.5);
+  background: rgba(0,174,254,0.04);
+  border: 1px solid rgba(0,174,254,0.1);
+  padding: 2px 7px;
+  border-radius: 2px;
+}
+ 
+/* ══════════════════════════════
+   TRUST FOOTER STRIP
+══════════════════════════════ */
+.trust-strip {
+  margin-top: 5rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid rgba(0,174,254,0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(0,174,254,0.02);
+  position: relative;
+}
+ 
+.trust-strip::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--ice), var(--cryo), var(--ice), transparent);
+  background-size: 200% 100%;
+  animation: tsFlow 5s linear infinite;
+}
+ 
+@keyframes tsFlow {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+ 
+.trust-item {
+  padding: 2rem 1.5rem;
+  text-align: center;
+  position: relative;
+}
+ 
+.trust-item + .trust-item::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 15%; bottom: 15%;
+  width: 1px;
+  background: rgba(0,174,254,0.08);
+}
+ 
+.trust-icon {
+  width: 40px; height: 40px;
+  margin: 0 auto 0.8rem;
+  background: rgba(0,174,254,0.07);
+  border: 1px solid rgba(0,174,254,0.15);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+ 
+.trust-icon svg {
+  width: 18px; height: 18px;
+  stroke: var(--cryo);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+ 
+.trust-val {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.9rem;
+  letter-spacing: 0.05em;
+  background: linear-gradient(135deg, #fff, var(--cryo));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+ 
+.trust-desc {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.55rem;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+ 
+/* ══════════════════════════════
+   RESPONSIVE
+══════════════════════════════ */
+@media (max-width: 860px) {
+  .mission-progress { display: none; }
+ 
+  .timeline-spine,
+  .spine-particle { display: none; }
+ 
+  .phase-row {
+    grid-template-columns: 1fr;
+    margin-bottom: 1.5rem;
+  }
+ 
+  .phase-row.left  .phase-card,
+  .phase-row.right .phase-card { grid-column: 1; text-align: left; }
+ 
+  .phase-row.left  .phase-card .card-tags,
+  .phase-row.right .phase-card .card-tags { justify-content: flex-start; }
+ 
+  .phase-row.left  .phase-card .phase-checklist li { justify-content: flex-start; }
+  .phase-row.left  .phase-card .phase-checklist li::before { order: 0; margin-left: 0; margin-right: 0.6rem; }
+  .phase-row.left  .phase-label { justify-content: flex-start; }
+  .phase-row.left  .phase-card::before { left: 1rem; right: auto; }
+ 
+  .phase-node { display: none; }
+  .phase-empty { display: none; }
+ 
+  .phase-card {
+    opacity: 1 !important;
+    transform: none !important;
+    border-color: rgba(0,174,254,0.18) !important;
+  }
+ 
+  .trust-strip { grid-template-columns: repeat(2, 1fr); }
+  .trust-item:nth-child(3),
+  .trust-item:nth-child(4) { border-top: 1px solid rgba(0,174,254,0.08); }
+  .trust-item:nth-child(3)::before { display: none; }
+}
+ 
+@media (max-width: 500px) {
+  .process-container { padding: 0 1.25rem; }
+  #process { padding: 90px 0 80px; }
+  .trust-strip { grid-template-columns: 1fr 1fr; }
+  .proc-coords { display: none; }
+}
 
     /* Contact Section */
     .contact-grid {
@@ -2796,53 +3488,280 @@
 </div>
 </section>
 
-  <!-- Why Choose Section -->
-  <section id="why-choose">
-    <div class="container">
-      <div class="section-title" data-aos="fade-up">
-        <h2>Why Choose Onice Technologies</h2>
-        <p>We bring creativity, care, and commitment to every project</p>
+  <!-- Process Section -->
+ <canvas id="star-canvas"></canvas>
+ 
+<section id="process">
+<div class="process-container">
+ 
+  <!-- ── HEADER ── -->
+  <div class="proc-header" data-aos="fade-up">
+    <div class="proc-transmission">transmission log — mission protocol</div>
+    <h2 class="proc-title">
+      <span class="t-plain">How We </span><span class="t-glow">Operate</span>
+    </h2>
+    <p class="proc-subtitle">
+      Six phases. Zero ambiguity. From the moment you reach out to the moment
+      your system goes live — and every orbit after that — you know exactly
+      where we are and what comes next.
+    </p>
+    <div class="proc-coords">
+      <span class="coord">LAT <span class="coord-val">26.2041° S</span></span>
+      <span class="coord">·</span>
+      <span class="coord">LON <span class="coord-val">28.0473° E</span></span>
+      <span class="coord">·</span>
+      <span class="coord">STATUS <span class="coord-val">MISSION READY</span></span>
+    </div>
+  </div>
+ 
+  <!-- ── MISSION PROGRESS ── -->
+  <div class="mission-progress" data-aos="fade-up" data-aos-delay="100">
+    <div class="mp-step active"><div class="mp-node active">01</div><div class="mp-label">Signal</div></div>
+    <div class="mp-connector active"></div>
+    <div class="mp-step active"><div class="mp-node active">02</div><div class="mp-label">Map</div></div>
+    <div class="mp-connector active"></div>
+    <div class="mp-step active"><div class="mp-node active">03</div><div class="mp-label">Engineer</div></div>
+    <div class="mp-connector"></div>
+    <div class="mp-step"><div class="mp-node">04</div><div class="mp-label">Verify</div></div>
+    <div class="mp-connector"></div>
+    <div class="mp-step"><div class="mp-node">05</div><div class="mp-label">Launch</div></div>
+    <div class="mp-connector"></div>
+    <div class="mp-step"><div class="mp-node">06</div><div class="mp-label">Orbit</div></div>
+  </div>
+ 
+  <!-- ── TIMELINE ── -->
+  <div class="timeline-wrap">
+ 
+    <!-- Spine -->
+    <div class="timeline-spine">
+      <div class="spine-particle"></div>
+      <div class="spine-particle"></div>
+      <div class="spine-particle"></div>
+    </div>
+ 
+    <!-- ═══ PHASE 01 — Signal Received ═══ -->
+    <div class="phase-row left" data-aos-phase>
+      <div class="phase-card" data-phase="01">
+        <div class="phase-label"><span class="phase-label-dot"></span>Phase 01</div>
+        <h3 class="phase-title">Signal Received</h3>
+        <p class="phase-desc">
+          You reach out. We actually listen. No scripts, no sales pitch —
+          just a real conversation about your business, your challenges,
+          and what success genuinely looks like for you.
+        </p>
+        <ul class="phase-checklist">
+          <li>Free discovery call — no commitment required</li>
+          <li>Deep dive into your current tech stack & pain points</li>
+          <li>Identify quick wins vs long-term objectives</li>
+          <li>Honest assessment of what you actually need</li>
+        </ul>
+        <div class="phase-duration">⏱ 1–2 days</div>
       </div>
-      
-      <div class="why-grid">
-        <div class="why-card" data-aos="fade-up" data-aos-delay="100">
-          <div class="why-card-icon">🚀</div>
-          <h4>Innovative Solutions</h4>
-          <p>We embrace cutting-edge technology and fresh ideas to create unique solutions perfectly tailored to your specific business needs.</p>
+      <div class="phase-node">
+        <div class="node-orb">
+          <div class="phase-connector"></div>
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.07 1.21 2 2 0 012.03 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
         </div>
-        
-        <div class="why-card" data-aos="fade-up" data-aos-delay="200">
-          <div class="why-card-icon">🤝</div>
-          <h4>Client-Centric Approach</h4>
-          <p>Your goals are our priority. We collaborate closely with you throughout every phase to ensure your complete success and satisfaction.</p>
+      </div>
+      <div class="phase-empty"></div>
+    </div>
+ 
+    <!-- ═══ PHASE 02 — Coordinates Mapped ═══ -->
+    <div class="phase-row right" data-aos-phase>
+      <div class="phase-empty"></div>
+      <div class="phase-node">
+        <div class="node-orb">
+          <div class="phase-connector"></div>
+          <svg viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
         </div>
-        
-        <div class="why-card" data-aos="fade-up" data-aos-delay="300">
-          <div class="why-card-icon">💡</div>
-          <h4>Expert Team</h4>
-          <p>Linux certified engineers with real enterprise experience. Deep knowledge backed by proven expertise.</p>
-        </div>
-        
-        <div class="why-card" data-aos="fade-up" data-aos-delay="400">
-          <div class="why-card-icon">⚙️</div>
-          <h4>Reliable Support</h4>
-          <p>We offer ongoing maintenance and dedicated support to keep your technology running smoothly. Always here when you need us.</p>
-        </div>
-        
-        <div class="why-card" data-aos="fade-up" data-aos-delay="500">
-          <div class="why-card-icon">💰</div>
-          <h4>Cost-Effective</h4>
-          <p>Enterprise-grade solutions without enterprise prices. Fair, transparent pricing designed for South Africa SMEs and growing businesses.</p>
-        </div>
-        
-        <div class="why-card" data-aos="fade-up" data-aos-delay="600">
-          <div class="why-card-icon">📍</div>
-          <h4>Local & Accessible</h4>
-          <p>Based in South Afrca, serving Gauteng and World-wide. Fast response times, on-site support when needed, and we understand SA business.</p>
+      </div>
+      <div class="phase-card" data-phase="02">
+        <div class="phase-label"><span class="phase-label-dot"></span>Phase 02</div>
+        <h3 class="phase-title">Coordinates Mapped</h3>
+        <p class="phase-desc">
+          We translate what we heard into a precise technical strategy and
+          written proposal. Every deliverable is defined. Every timeline
+          is real. No vague estimates, no hidden scope.
+        </p>
+        <ul class="phase-checklist">
+          <li>Detailed project scope document</li>
+          <li>Technology stack recommendation with rationale</li>
+          <li>Fixed milestone timeline with delivery dates</li>
+          <li>Transparent, itemised pricing — no surprises</li>
+        </ul>
+        <div class="phase-duration">⏱ 2–4 days</div>
+        <div class="card-tags">
+          <span class="ctag">Scoping</span>
+          <span class="ctag">Architecture</span>
+          <span class="ctag">Proposal</span>
         </div>
       </div>
     </div>
-  </section>
+ 
+    <!-- ═══ PHASE 03 — Systems Engineered ═══ -->
+    <div class="phase-row left" data-aos-phase>
+      <div class="phase-card" data-phase="03">
+        <div class="phase-label"><span class="phase-label-dot"></span>Phase 03</div>
+        <h3 class="phase-title">Systems Engineered</h3>
+        <p class="phase-desc">
+          This is where we build. Clean code, documented systems, and
+          weekly check-ins so you're never left wondering what's happening.
+          We treat your project like it's our own infrastructure.
+        </p>
+        <ul class="phase-checklist">
+          <li>Agile sprints with visible weekly progress</li>
+          <li>Version-controlled codebase from day one</li>
+          <li>Regular demos — you see it being built live</li>
+          <li>Staging environment for your review & feedback</li>
+        </ul>
+        <div class="phase-duration">⏱ Project dependent</div>
+        <div class="card-tags">
+          <span class="ctag">Development</span>
+          <span class="ctag">CI/CD</span>
+          <span class="ctag">Sprints</span>
+        </div>
+      </div>
+      <div class="phase-node">
+        <div class="node-orb">
+          <div class="phase-connector"></div>
+          <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+      </div>
+      <div class="phase-empty"></div>
+    </div>
+ 
+    <!-- ═══ PHASE 04 — Integrity Check ═══ -->
+    <div class="phase-row right" data-aos-phase>
+      <div class="phase-empty"></div>
+      <div class="phase-node">
+        <div class="node-orb">
+          <div class="phase-connector"></div>
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+      </div>
+      <div class="phase-card" data-phase="04">
+        <div class="phase-label"><span class="phase-label-dot"></span>Phase 04</div>
+        <h3 class="phase-title">Integrity Check</h3>
+        <p class="phase-desc">
+          Before anything goes live it gets stress-tested. Security hardened.
+          Performance validated. We don't ship something we wouldn't trust
+          with our own name on it.
+        </p>
+        <ul class="phase-checklist">
+          <li>Full functionality & regression testing</li>
+          <li>Security vulnerability scan</li>
+          <li>Performance benchmarking & load testing</li>
+          <li>Cross-device & browser compatibility check</li>
+        </ul>
+        <div class="phase-duration">⏱ 3–7 days</div>
+        <div class="card-tags">
+          <span class="ctag">QA</span>
+          <span class="ctag">Security</span>
+          <span class="ctag">Performance</span>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- ═══ PHASE 05 — Launch Sequence ═══ -->
+    <div class="phase-row left" data-aos-phase>
+      <div class="phase-card" data-phase="05">
+        <div class="phase-label"><span class="phase-label-dot"></span>Phase 05</div>
+        <h3 class="phase-title">Launch Sequence</h3>
+        <p class="phase-desc">
+          Deployment day is not a gamble — it's a controlled, practised
+          sequence. We handle the entire go-live process so you can
+          focus on your business, not your screen.
+        </p>
+        <ul class="phase-checklist">
+          <li>Zero-downtime deployment strategy</li>
+          <li>DNS cutover, SSL & domain configuration</li>
+          <li>Post-launch smoke testing & validation</li>
+          <li>Full handover documentation & knowledge transfer</li>
+        </ul>
+        <div class="phase-duration">⏱ 1–2 days</div>
+        <div class="card-tags">
+          <span class="ctag">Deploy</span>
+          <span class="ctag">DNS</span>
+          <span class="ctag">Handover</span>
+        </div>
+      </div>
+      <div class="phase-node">
+        <div class="node-orb">
+          <div class="phase-connector"></div>
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+      </div>
+      <div class="phase-empty"></div>
+    </div>
+ 
+    <!-- ═══ PHASE 06 — Orbit Maintained ═══ -->
+    <div class="phase-row right" data-aos-phase>
+      <div class="phase-empty"></div>
+      <div class="phase-node">
+        <div class="node-orb">
+          <div class="phase-connector"></div>
+          <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+        </div>
+      </div>
+      <div class="phase-card" data-phase="06">
+        <div class="phase-label"><span class="phase-label-dot"></span>Phase 06</div>
+        <h3 class="phase-title">Orbit Maintained</h3>
+        <p class="phase-desc">
+          We don't disappear after launch. Ongoing monitoring, proactive
+          updates, and a support line that responds — because the relationship
+          doesn't end when the project does. It's just getting started.
+        </p>
+        <ul class="phase-checklist">
+          <li>24/7 uptime monitoring with instant alerts</li>
+          <li>Monthly performance & security reports</li>
+          <li>Scheduled maintenance & patch cycles</li>
+          <li>Priority support for changes & new features</li>
+        </ul>
+        <div class="phase-duration">⏱ Ongoing</div>
+        <div class="card-tags">
+          <span class="ctag">Monitoring</span>
+          <span class="ctag">Support</span>
+          <span class="ctag">Retainer</span>
+        </div>
+      </div>
+    </div>
+ 
+  </div><!-- /timeline-wrap -->
+ 
+  <!-- ── TRUST STRIP ── -->
+  <div class="trust-strip" data-aos="fade-up" data-aos-delay="100">
+    <div class="trust-item">
+      <div class="trust-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div class="trust-val">No Lock-in</div>
+      <div class="trust-desc">You own everything we build</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div class="trust-val">On Time</div>
+      <div class="trust-desc">Milestones we actually meet</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+      </div>
+      <div class="trust-val">Fixed Price</div>
+      <div class="trust-desc">Agreed upfront — zero hidden costs</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      </div>
+      <div class="trust-val">Plain Talk</div>
+      <div class="trust-desc">No jargon. Real communication</div>
+    </div>
+  </div>
+ 
+</div>
+</section>
 
   <!-- Contact Section -->
   <section id="contact">
@@ -2948,6 +3867,66 @@
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+/* ── STAR FIELD ── */
+(function() {
+  const c = document.getElementById('star-canvas');
+  const ctx = c.getContext('2d');
+  let stars = [];
+ 
+  function resize() {
+    c.width  = window.innerWidth;
+    c.height = window.innerHeight;
+  }
+  window.addEventListener('resize', () => { resize(); init(); });
+  resize();
+ 
+  function init() {
+    stars = [];
+    for (let i = 0; i < 180; i++) {
+      stars.push({
+        x: Math.random() * c.width,
+        y: Math.random() * c.height,
+        r: Math.random() * 1.2 + 0.2,
+        a: Math.random(),
+        speed: Math.random() * 0.004 + 0.002,
+        phase: Math.random() * Math.PI * 2
+      });
+    }
+  }
+  init();
+ 
+  let t = 0;
+  function draw() {
+    ctx.clearRect(0, 0, c.width, c.height);
+    t += 0.01;
+    stars.forEach(s => {
+      const alpha = s.a * (0.4 + 0.3 * Math.sin(t * s.speed * 100 + s.phase));
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(180, 220, 255, ${alpha})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+ 
+/* ── PHASE ACTIVATION ON SCROLL ── */
+(function() {
+  const phases = document.querySelectorAll('.phase-row[data-aos-phase]');
+ 
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('activated');
+      }
+    });
+  }, { threshold: 0.25 });
+ 
+  phases.forEach(p => obs.observe(p));
+})();
+</script>
   <script>
 /* ── NEURAL CANVAS ── */
 (function() {
