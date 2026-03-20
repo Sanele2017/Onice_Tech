@@ -548,170 +548,497 @@
   }
 
     /* Hero Section */
-    #hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      position: relative;
-      padding: 100px 20px 80px;
-      overflow: hidden;
-    }
-
-    #hero::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(0, 174, 254, 0.15) 0%, transparent 70%);
-      animation: heroGlow 4s ease-in-out infinite;
-    }
-
-    @keyframes heroGlow {
-      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
-      50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero-logo {
-      width: 140px;
-      margin-bottom: 2rem;
-      animation: floatLogo 3s ease-in-out infinite;
-      filter: drop-shadow(0 0 30px var(--primary-color));
-    }
-
-    @keyframes floatLogo {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-20px); }
-    }
-
-    #hero h1 {
-      font-size: clamp(2.5rem, 8vw, 4.5rem);
-      font-weight: 800;
-      background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 1rem;
-      letter-spacing: -1px;
-    }
-
-    #hero .lead {
-      font-size: clamp(1.2rem, 3vw, 1.8rem);
-      color: var(--primary-color);
-      min-height: 60px;
-      margin-bottom: 2rem;
-      font-weight: 500;
-    }
-
-    .hero-tagline {
-      font-size: clamp(1rem, 2.5vw, 1.3rem);
-      color: var(--text-muted);
-      max-width: 700px;
-      margin: 0 auto 3rem;
-      line-height: 1.8;
-    }
-
-    .cta-buttons {
-      display: flex;
-      gap: 1.5rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 2rem;
-    }
-
-    .btn-primary-custom {
-      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-      border: none;
-      padding: 1rem 2.5rem;
-      font-size: 1.1rem;
-      font-weight: 600;
-      border-radius: 50px;
-      color: #fff;
-      transition: all 0.4s ease;
-      box-shadow: 0 10px 30px rgba(0, 174, 254, 0.3);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn-primary-custom::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-      transition: left 0.5s ease;
-    }
-
-    .btn-primary-custom:hover::before {
-      left: 100%;
-    }
-
-    .btn-primary-custom:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 40px rgba(0, 174, 254, 0.5);
-    }
-
-    .btn-outline-custom {
-      background: transparent;
-      border: 2px solid var(--primary-color);
-      padding: 1rem 2.5rem;
-      font-size: 1.1rem;
-      font-weight: 600;
-      border-radius: 50px;
-      color: var(--primary-color);
-      transition: all 0.3s ease;
-    }
-
-    .btn-outline-custom:hover {
-      background: var(--primary-color);
-      color: #000;
-      transform: translateY(-3px);
-      box-shadow: 0 10px 30px rgba(0, 174, 254, 0.4);
-    }
-
-    /* Trust Indicators */
-    .trust-badges {
-      display: flex;
-      justify-content: center;
-      gap: 3rem;
-      flex-wrap: wrap;
-      margin-top: 4rem;
-      padding-top: 3rem;
-      border-top: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .trust-badge {
-      text-align: center;
-    }
-
-    .trust-badge i {
-      font-size: 2rem;
-      color: var(--primary-color);
-      margin-bottom: 0.5rem;
-    }
-
-    .trust-badge h4 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 0.3rem;
-    }
-
-    .trust-badge p {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
+     /* ── HERO SHELL ── */
+  #hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    padding: 120px 20px 80px;
+  }
+ 
+  /* Neural canvas background */
+  #neural-canvas {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+ 
+  /* Perspective grid floor */
+  .grid-floor {
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 200%;
+    height: 55%;
+    background-image:
+      linear-gradient(rgba(0,174,254,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,174,254,0.07) 1px, transparent 1px);
+    background-size: 60px 60px;
+    transform-origin: bottom center;
+    transform: translateX(-50%) perspective(600px) rotateX(75deg);
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 100%, black 30%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 100%, black 30%, transparent 100%);
+    z-index: 0;
+  }
+ 
+  /* Ambient glow orb */
+  .glow-orb {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -55%);
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(0,174,254,0.08) 0%, rgba(0,212,255,0.04) 30%, transparent 70%);
+    animation: orbPulse 6s ease-in-out infinite;
+    z-index: 0;
+    pointer-events: none;
+  }
+  @keyframes orbPulse {
+    0%,100% { transform: translate(-50%,-55%) scale(1); opacity:0.6; }
+    50%      { transform: translate(-50%,-55%) scale(1.15); opacity:1; }
+  }
+ 
+  /* Horizontal scan line */
+  .hero-scanline {
+    position: absolute;
+    left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0,174,254,0.3), rgba(0,212,255,0.6), rgba(0,174,254,0.3), transparent);
+    animation: scanMove 8s linear infinite;
+    z-index: 1;
+    pointer-events: none;
+  }
+  @keyframes scanMove {
+    0%   { top: 0%;  opacity: 0; }
+    5%   { opacity: 1; }
+    95%  { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+  }
+ 
+  /* ── CONTENT ── */
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    width: 100%;
+  }
+ 
+  /* ── LOGO ORBITAL SYSTEM ── */
+  .logo-system {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 3.5rem;
+  }
+ 
+  .logo-core {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90px; height: 90px;
+    z-index: 5;
+  }
+ 
+  .logo-core img {
+    width: 100%; height: 100%;
+    filter: drop-shadow(0 0 20px var(--ice)) drop-shadow(0 0 40px rgba(0,174,254,0.4));
+    animation: logoFloat 4s ease-in-out infinite;
+  }
+ 
+  /* Fallback glyph if SVG not loaded */
+  .logo-core-fallback {
+    width: 90px; height: 90px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 28px; font-weight: 400;
+    color: var(--cryo);
+    background: linear-gradient(135deg, rgba(0,174,254,0.15), rgba(0,212,255,0.08));
+    border-radius: 18px;
+    border: 1px solid rgba(0,174,254,0.4);
+    text-shadow: 0 0 20px var(--ice);
+    box-shadow: 0 0 40px rgba(0,174,254,0.2), inset 0 0 20px rgba(0,174,254,0.05);
+    animation: logoFloat 4s ease-in-out infinite;
+  }
+ 
+  @keyframes logoFloat {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-12px); }
+  }
+ 
+  /* Orbital rings */
+  .orbit {
+    position: absolute;
+    top: 50%; left: 50%;
+    border-radius: 50%;
+    border: 1px solid transparent;
+  }
+ 
+  .orbit-1 {
+    width: 140px; height: 140px;
+    margin: -70px 0 0 -70px;
+    border-color: rgba(0,174,254,0.5);
+    box-shadow: 0 0 8px rgba(0,174,254,0.2);
+    animation: spin1 6s linear infinite;
+    transform-style: preserve-3d;
+  }
+ 
+  .orbit-2 {
+    width: 175px; height: 175px;
+    margin: -87.5px 0 0 -87.5px;
+    border-color: rgba(0,212,255,0.3);
+    animation: spin2 9s linear infinite reverse;
+    transform: rotateX(70deg);
+  }
+ 
+  .orbit-3 {
+    width: 200px; height: 200px;
+    margin: -100px 0 0 -100px;
+    border-color: rgba(0,174,254,0.15);
+    border-style: dashed;
+    animation: spin3 14s linear infinite;
+    transform: rotateY(60deg) rotateX(20deg);
+  }
+ 
+  /* Orbit dot markers */
+  .orbit-dot {
+    position: absolute;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--cryo);
+    box-shadow: 0 0 8px var(--ice), 0 0 16px rgba(0,174,254,0.6);
+    top: -3px; left: 50%; margin-left: -3px;
+  }
+ 
+  .orbit-1 .orbit-dot { background: var(--ice); }
+  .orbit-2 .orbit-dot { width: 4px; height: 4px; top: -2px; margin-left: -2px; background: var(--cryo); }
+ 
+  @keyframes spin1 {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  @keyframes spin2 {
+    from { transform: rotateX(70deg) rotate(0deg); }
+    to   { transform: rotateX(70deg) rotate(360deg); }
+  }
+  @keyframes spin3 {
+    from { transform: rotateY(60deg) rotateX(20deg) rotate(0deg); }
+    to   { transform: rotateY(60deg) rotateX(20deg) rotate(360deg); }
+  }
+ 
+  /* ── TITLE ── */
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 300;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: rgba(0,174,254,0.6);
+    margin-bottom: 0.8rem;
+    animation: fadeSlideUp 0.8s ease both;
+    animation-delay: 0.2s;
+  }
+ 
+  .hero-title-wrap {
+    position: relative;
+    margin-bottom: 1rem;
+    animation: fadeSlideUp 0.8s ease both;
+    animation-delay: 0.4s;
+  }
+ 
+  /* Ghost glitch layer */
+  .hero-title-ghost {
+    position: absolute;
+    top: 3px; left: 3px;
+    right: 0;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 10vw, 6.5rem);
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(0,212,255,0.15);
+    pointer-events: none;
+    white-space: nowrap;
+    animation: glitch 8s ease-in-out infinite;
+  }
+ 
+  @keyframes glitch {
+    0%,90%,100% { transform: translate(0,0); opacity:1; clip-path: none; }
+    92% { transform: translate(-3px, 0); clip-path: inset(20% 0 50% 0); opacity:0.8; }
+    94% { transform: translate(3px, 0);  clip-path: inset(60% 0 10% 0); opacity:0.8; }
+    96% { transform: translate(0,0);     clip-path: none; opacity:1; }
+  }
+ 
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 10vw, 6.5rem);
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    background: linear-gradient(135deg, #ffffff 0%, #a8dfff 30%, var(--cryo) 55%, var(--ice) 75%, #ffffff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% 200%;
+    animation: titleShimmer 6s ease-in-out infinite;
+    position: relative;
+    line-height: 1;
+  }
+ 
+  @keyframes titleShimmer {
+    0%,100% { background-position: 0% 50%; }
+    50%      { background-position: 100% 50%; }
+  }
+ 
+  /* ── AI STREAM LINE ── */
+  .ai-stream {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 300;
+    color: rgba(0,174,254,0.5);
+    letter-spacing: 0.15em;
+    margin-bottom: 2rem;
+    min-height: 1.2rem;
+    animation: fadeSlideUp 0.8s ease both;
+    animation-delay: 0.6s;
+  }
+ 
+  .ai-cursor {
+    display: inline-block;
+    width: 7px; height: 0.85em;
+    background: var(--ice);
+    vertical-align: middle;
+    margin-left: 2px;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+ 
+  /* ── TAGLINE ── */
+  .hero-tagline {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(0.95rem, 2.2vw, 1.2rem);
+    color: rgba(180, 210, 235, 0.65);
+    max-width: 620px;
+    margin: 0 auto 3rem;
+    line-height: 1.9;
+    font-weight: 400;
+    animation: fadeSlideUp 0.8s ease both;
+    animation-delay: 0.8s;
+  }
+ 
+  /* ── CTA AREA ── */
+  .cta-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    animation: fadeSlideUp 0.8s ease both;
+    animation-delay: 1s;
+  }
+ 
+  .btn-singularity {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.9rem 2.5rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--void);
+    text-decoration: none;
+    background: linear-gradient(135deg, var(--ice), var(--cryo));
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 30px rgba(0,174,254,0.4), 0 0 60px rgba(0,174,254,0.15), inset 0 1px 0 rgba(255,255,255,0.3);
+  }
+ 
+  .btn-singularity::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.5s ease;
+  }
+ 
+  /* Corner accents */
+  .btn-singularity::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 4px;
+    pointer-events: none;
+  }
+ 
+  .btn-singularity:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 50px rgba(0,174,254,0.65), 0 0 100px rgba(0,174,254,0.2), inset 0 1px 0 rgba(255,255,255,0.3);
+  }
+  .btn-singularity:hover::before { left: 100%; }
+ 
+  .btn-singularity .btn-arrow {
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+  }
+  .btn-singularity:hover .btn-arrow {
+    transform: translateX(4px);
+  }
+ 
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 2rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(0,174,254,0.75);
+    text-decoration: none;
+    border: 1px solid rgba(0,174,254,0.25);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    background: rgba(0,174,254,0.04);
+  }
+ 
+  .btn-ghost:hover {
+    color: #fff;
+    border-color: rgba(0,174,254,0.6);
+    background: rgba(0,174,254,0.1);
+    box-shadow: 0 0 20px rgba(0,174,254,0.2);
+  }
+ 
+  /* ── DIVIDER ── */
+  .hero-divider {
+    width: 1px; height: 30px;
+    background: linear-gradient(180deg, transparent, rgba(0,174,254,0.4), transparent);
+    margin: 0 auto;
+  }
+ 
+  /* ── HUD BADGES ── */
+  .hud-badges {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: 3.5rem;
+    animation: fadeSlideUp 0.8s ease both;
+    animation-delay: 1.2s;
+  }
+ 
+  .hud-badge {
+    position: relative;
+    padding: 1.1rem 1.6rem;
+    background: rgba(0,174,254,0.04);
+    border: 1px solid rgba(0,174,254,0.15);
+    border-radius: 6px;
+    text-align: left;
+    min-width: 150px;
+    transition: border-color 0.3s ease, background 0.3s ease;
+    overflow: hidden;
+  }
+ 
+  .hud-badge::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: linear-gradient(180deg, var(--ice), var(--cryo));
+    opacity: 0.7;
+  }
+ 
+  /* Corner pip */
+  .hud-badge::after {
+    content: '';
+    position: absolute;
+    top: 6px; right: 6px;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--cryo);
+    box-shadow: 0 0 6px var(--ice);
+    animation: pipBlink 3s ease-in-out infinite;
+  }
+ 
+  @keyframes pipBlink {
+    0%,100% { opacity: 1; } 50% { opacity: 0.3; }
+  }
+ 
+  /* ── SCROLL INDICATOR ── */
+  .scroll-signal {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    z-index: 3;
+    animation: fadeSlideUp 0.8s ease both;
+    animation-delay: 1.5s;
+  }
+ 
+  .scroll-signal span {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(0,174,254,0.35);
+  }
+ 
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(180deg, rgba(0,174,254,0.5), transparent);
+    position: relative;
+    overflow: hidden;
+  }
+ 
+  .scroll-line::after {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, var(--cryo));
+    animation: scrollDrop 2s ease-in-out infinite;
+  }
+ 
+  @keyframes scrollDrop {
+    0%   { top: -100%; }
+    100% { top: 200%; }
+  }
+ 
+  /* ── ENTRANCE ANIMATION ── */
+  @keyframes fadeSlideUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+ 
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .logo-system { width: 160px; height: 160px; }
+    .orbit-3 { width: 160px; height: 160px; margin: -80px 0 0 -80px; }
+    .hero-title-ghost { display: none; }
+    .hud-badges { gap: 0.75rem; }
+    .hud-badge { min-width: 130px; padding: 0.9rem 1.2rem; }
+    .cta-area { gap: 1rem; }
+  }
+ 
+  @media (max-width: 480px) {
+    .hud-badge { min-width: calc(50% - 0.5rem); }
+    .btn-singularity, .btn-ghost { width: 100%; justify-content: center; }
+    .cta-area { flex-direction: column; align-items: stretch; max-width: 280px; margin: 0 auto; }
+  }
 
     /* Section Styling */
     section {
@@ -1171,42 +1498,72 @@
 
   <!-- Hero Section -->
   <section id="hero">
-    <div class="hero-content" data-aos="fade-up">
-      <img src="images/onice-icon.svg" alt="Onice Logo" class="hero-logo" />
-      <h1>ONICE TECHNOLOGIES</h1>
-      <p class="lead" id="typedText"></p>
-      <p class="hero-tagline">
-        Professional IT solutions from South Africa. From Linux server management to custom web development—we transform your technology vision into reality.
-      </p>
-      <div class="cta-buttons">
-        <a href="#contact" class="btn btn-primary-custom">
-          <i class="bi bi-chat-dots me-2"></i>Get Free Consultation
-        </a>
-        <a href="#services" class="btn btn-outline-custom">
-          <i class="bi bi-grid-3x3-gap me-2"></i>View Services
-        </a>
-      </div>
-      
-      <!-- Trust Indicators -->
-      <div class="trust-badges">
-        <div class="trust-badge" data-aos="fade-up" data-aos-delay="100">
-          <i class="bi bi-award-fill"></i>
-          <h4>Certified</h4>
-          <p>Linux Engineer</p>
-        </div>
-        <div class="trust-badge" data-aos="fade-up" data-aos-delay="200">
-          <i class="bi bi-building"></i>
-          <h4>Enterprise</h4>
-          <p>Experience</p>
-        </div>
-        <div class="trust-badge" data-aos="fade-up" data-aos-delay="300">
-          <i class="bi bi-geo-alt-fill"></i>
-          <h4>Local</h4>
-          <p>World-wide</p>
-        </div>
+ 
+  <!-- Neural canvas -->
+  <canvas id="neural-canvas"></canvas>
+ 
+  <!-- Perspective grid -->
+  <div class="grid-floor"></div>
+ 
+  <!-- Ambient glow -->
+  <div class="glow-orb"></div>
+ 
+  <!-- Scan line -->
+  <div class="hero-scanline"></div>
+ 
+  <div class="hero-content">
+ 
+    <!-- Logo Orbital System -->
+    <div class="logo-system" data-aos="zoom-in">
+      <div class="orbit orbit-3"><div class="orbit-dot"></div></div>
+      <div class="orbit orbit-2"><div class="orbit-dot"></div></div>
+      <div class="orbit orbit-1"><div class="orbit-dot"></div></div>
+      <div class="logo-core">
+        <!-- Replace src with your real SVG path -->
+        <img src="images/onice-icon.svg" alt="Onice Logo"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+        <div class="logo-core-fallback" style="display:none;">Oi</div>
       </div>
     </div>
-  </section>
+ 
+    <!-- Eyebrow -->
+    <div class="hero-eyebrow">Est. South Africa &nbsp;/&nbsp; Johannesburg &nbsp;·&nbsp; Est. 2020</div>
+ 
+    <!-- Title -->
+    <div class="hero-title-wrap">
+      <div class="hero-title-ghost">ONICE TECHNOLOGIES</div>
+      <h1 class="hero-title">ONICE TECHNOLOGIES</h1>
+    </div>
+ 
+    <!-- AI stream text -->
+    <div class="ai-stream">
+      <span id="stream-text"></span><span class="ai-cursor"></span>
+    </div>
+ 
+    <!-- Tagline -->
+    <p class="hero-tagline">
+      Professional IT solutions from South Africa. From Linux server management
+      to custom web development — we transform your technology vision into reality.
+    </p>
+ 
+    <!-- CTA -->
+    <div class="cta-area">
+      <a href="#contact" class="btn-singularity">
+        Start Your Future
+        <span class="btn-arrow">→</span>
+      </a>
+      <a href="#services" class="btn-ghost">
+        Explore Solutions
+      </a>
+    </div>
+ 
+  <!-- Scroll signal -->
+  <div class="scroll-signal">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+ 
+</section>
 
   <!-- About Section -->
   <section id="about">
