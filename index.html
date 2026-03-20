@@ -1040,109 +1040,431 @@
     .cta-area { flex-direction: column; align-items: stretch; max-width: 280px; margin: 0 auto; }
   }
 
-    /* Section Styling */
-    section {
-      padding: 100px 20px;
-      position: relative;
+   /* ─────────────────────────────
+     SECTION SHELL
+  ───────────────────────────── */
+  #about {
+    position: relative;
+    padding: 120px 0 100px;
+    overflow: hidden;
+  }
+ 
+  /* Faint diagonal stripe texture */
+  #about::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      -55deg,
+      transparent,
+      transparent 60px,
+      rgba(0,174,254,0.018) 60px,
+      rgba(0,174,254,0.018) 61px
+    );
+    pointer-events: none;
+  }
+ 
+  /* Ambient glow top-right */
+  #about::after {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,174,254,0.06) 0%, transparent 65%);
+    pointer-events: none;
+  }
+ 
+  .about-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 3rem;
+    position: relative;
+    z-index: 2;
+  }
+ 
+  /* ─────────────────────────────
+     SECTION LABEL
+  ───────────────────────────── */
+  .about-label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 5rem;
+  }
+ 
+  .about-label-line {
+    flex: 0 0 40px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--ice), transparent);
+  }
+ 
+  .about-label-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    font-weight: 300;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: rgba(0,174,254,0.55);
+  }
+ 
+  .about-label-index {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    color: rgba(0,174,254,0.25);
+    letter-spacing: 0.1em;
+    margin-left: auto;
+  }
+ 
+  /* ─────────────────────────────
+     MAIN SPLIT LAYOUT
+  ───────────────────────────── */
+  .about-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+    margin-bottom: 6rem;
+  }
+ 
+  /* ── LEFT: MANIFESTO ── */
+  .manifesto {
+    position: sticky;
+    top: 100px;
+  }
+ 
+  .manifesto-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ice);
+    opacity: 0.6;
+    margin-bottom: 1.2rem;
+  }
+ 
+  .manifesto-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    line-height: 1.0;
+    letter-spacing: 0.03em;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+ 
+  .manifesto-headline .line-plain {
+    color: rgba(255,255,255,0.9);
+    display: block;
+  }
+ 
+  .manifesto-headline .line-glow {
+    display: block;
+    background: linear-gradient(135deg, #fff 0%, var(--cryo) 50%, var(--ice) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+ 
+  .manifesto-headline .line-outline {
+    display: block;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(0,174,254,0.4);
+  }
+ 
+  .manifesto-body {
+    font-size: 1rem;
+    line-height: 1.9;
+    color: var(--text-body);
+    margin-bottom: 2rem;
+    font-weight: 400;
+  }
+ 
+  .manifesto-body strong {
+    color: rgba(255,255,255,0.9);
+    font-weight: 600;
+  }
+ 
+  .manifesto-body p + p {
+    margin-top: 1rem;
+  }
+ 
+  /* Accent quote */
+  .manifesto-quote {
+    position: relative;
+    padding: 1.2rem 1.5rem;
+    border-left: 2px solid var(--ice);
+    background: rgba(0,174,254,0.04);
+    border-radius: 0 6px 6px 0;
+    margin-top: 2rem;
+  }
+ 
+  .manifesto-quote p {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: rgba(0,212,255,0.8);
+    letter-spacing: 0.02em;
+  }
+ 
+  .manifesto-quote::before {
+    content: '"';
+    position: absolute;
+    top: -12px; left: 12px;
+    font-size: 3rem;
+    color: var(--ice);
+    opacity: 0.3;
+    font-family: Georgia, serif;
+    line-height: 1;
+  }
+ 
+  /* ── RIGHT: CAPABILITY NODES ── */
+  .capability-nodes {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+ 
+  .node {
+    position: relative;
+    padding: 1.4rem 1.6rem;
+    background: rgba(6,15,30,0.6);
+    border: 1px solid rgba(0,174,254,0.1);
+    border-radius: 8px;
+    cursor: default;
+    transition: border-color 0.35s ease, background 0.35s ease, transform 0.3s ease;
+    overflow: hidden;
+  }
+ 
+  /* Left accent bar */
+  .node::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: linear-gradient(180deg, var(--ice), var(--cryo));
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
+ 
+  /* Hover glow sweep */
+  .node::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0,174,254,0.05), transparent);
+    transition: left 0.5s ease;
+  }
+ 
+  .node:hover {
+    border-color: rgba(0,174,254,0.35);
+    background: rgba(0,174,254,0.05);
+    transform: translateX(6px);
+  }
+ 
+  .node:hover::before { opacity: 1; }
+  .node:hover::after  { left: 100%; }
+ 
+  .node-header {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    margin-bottom: 0.6rem;
+  }
+ 
+  .node-icon {
+    width: 36px; height: 36px;
+    flex-shrink: 0;
+    background: rgba(0,174,254,0.08);
+    border: 1px solid rgba(0,174,254,0.2);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+ 
+  .node-icon svg {
+    width: 16px; height: 16px;
+    stroke: var(--cryo);
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+ 
+  .node-title-wrap { flex: 1; }
+ 
+  .node-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+  }
+ 
+  .node-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.52rem;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(0,174,254,0.45);
+    margin-top: 2px;
+  }
+ 
+  /* Live indicator */
+  .node-status {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.15em;
+    color: rgba(0,212,255,0.5);
+    text-transform: uppercase;
+  }
+ 
+  .status-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: #00ff88;
+    box-shadow: 0 0 6px #00ff88;
+    animation: statusPulse 2.5s ease-in-out infinite;
+  }
+ 
+  @keyframes statusPulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: 0.4; transform: scale(0.7); }
+  }
+ 
+  .node-body {
+    font-size: 0.82rem;
+    line-height: 1.75;
+    color: var(--text-body);
+    padding-left: calc(36px + 0.9rem);
+  }
+ 
+  /* Tech tags row */
+  .node-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.8rem;
+    padding-left: calc(36px + 0.9rem);
+  }
+ 
+  .tech-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(0,174,254,0.6);
+    background: rgba(0,174,254,0.06);
+    border: 1px solid rgba(0,174,254,0.15);
+    padding: 3px 8px;
+    border-radius: 3px;
+  }
+ 
+  /* ─────────────────────────────
+     STAT BAR
+  ───────────────────────────── */
+  .stat-bar {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 1px solid rgba(0,174,254,0.12);
+    border-radius: 10px;
+    overflow: hidden;
+    background: rgba(0,174,254,0.03);
+  }
+ 
+  /* Top light line */
+  .stat-bar::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--ice), var(--cryo), var(--ice), transparent);
+    animation: statBarFlow 4s linear infinite;
+    background-size: 200% 100%;
+  }
+ 
+  @keyframes statBarFlow {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+ 
+  .stat-item {
+    padding: 2rem 1.5rem;
+    text-align: center;
+    position: relative;
+  }
+ 
+  /* Dividers */
+  .stat-item + .stat-item::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 20%; bottom: 20%;
+    width: 1px;
+    background: rgba(0,174,254,0.1);
+  }
+ 
+  .stat-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    letter-spacing: 0.05em;
+    background: linear-gradient(135deg, #fff, var(--cryo));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+ 
+  .stat-suffix {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.2rem;
+    color: var(--cryo);
+    -webkit-text-fill-color: var(--cryo);
+  }
+ 
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+ 
+  /* ─────────────────────────────
+     RESPONSIVE
+  ───────────────────────────── */
+  @media (max-width: 900px) {
+    .about-split {
+      grid-template-columns: 1fr;
+      gap: 3rem;
     }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 4rem;
+    .manifesto { position: static; }
+    .stat-bar  { grid-template-columns: repeat(2, 1fr); }
+    .stat-item + .stat-item::before { display: none; }
+    .stat-item:nth-child(3),
+    .stat-item:nth-child(4) {
+      border-top: 1px solid rgba(0,174,254,0.1);
     }
-
-    .section-title h2 {
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      font-weight: 800;
-      color: #fff;
-      margin-bottom: 1rem;
-      position: relative;
-      display: inline-block;
-    }
-
-    .section-title h2::after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 4px;
-      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-      border-radius: 2px;
-    }
-
-    .section-title p {
-      color: var(--text-muted);
-      font-size: 1.2rem;
-      max-width: 700px;
-      margin: 1.5rem auto 0;
-    }
-
-    /* Glass Card Effect */
-    .glass-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 20px;
-      padding: 2.5rem;
-      backdrop-filter: blur(20px);
-      transition: all 0.4s ease;
-      height: 100%;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .glass-card::before {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: linear-gradient(135deg, var(--primary-color), transparent);
-      border-radius: 20px;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      z-index: -1;
-    }
-
-    .glass-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 60px rgba(0, 174, 254, 0.3);
-      border-color: var(--primary-color);
-    }
-
-    .glass-card:hover::before {
-      opacity: 0.3;
-    }
-
-    /* About Section */
-    .about-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
-    }
-
-    .about-card-icon {
-      font-size: 3rem;
-      color: var(--primary-color);
-      margin-bottom: 1.5rem;
-      display: inline-block;
-    }
-
-    .about-card h4 {
-      font-size: 1.5rem;
-      color: #fff;
-      margin-bottom: 1rem;
-      font-weight: 600;
-    }
-
-    .about-card p {
-      color: var(--text-muted);
-      line-height: 1.8;
-    }
-
+  }
+ 
+  @media (max-width: 600px) {
+    .about-container { padding: 0 1.25rem; }
+    #about { padding: 80px 0 70px; }
+    .stat-bar { grid-template-columns: repeat(2, 1fr); }
+    .manifesto-headline { font-size: 2.6rem; }
+    .node-body, .node-tags { padding-left: 0; margin-top: 0.5rem; }
+  }
     /* Services Section */
     .services-grid {
       display: grid;
@@ -1566,42 +1888,185 @@
 </section>
 
   <!-- About Section -->
-  <section id="about">
-    <div class="container">
-      <div class="section-title" data-aos="fade-up">
-        <h2>About Onice Technologies</h2>
-        <p>
-          Founded on principles of innovation, integrity, and excellence—we're your trusted partner for cutting-edge digital solutions in South Africa.
-        </p>
+ <section id="about">
+  <div class="about-container">
+ 
+    <!-- Section label -->
+    <div class="about-label">
+      <div class="about-label-line"></div>
+      <span class="about-label-text">About Onice Technologies</span>
+      <span class="about-label-index">02 / 05</span>
+    </div>
+ 
+    <!-- Split layout -->
+    <div class="about-split">
+ 
+      <!-- LEFT: Manifesto -->
+      <div class="manifesto" data-aos="fade-right">
+        <div class="manifesto-tag">&gt; transmission_received</div>
+ 
+        <h2 class="manifesto-headline">
+          <span class="line-plain">Qualified first.</span>
+          <span class="line-glow">Hungry always.</span>
+          <span class="line-outline">Excuses never.</span>
+        </h2>
+ 
+        <div class="manifesto-body">
+          <p>
+            Onice Technologies is new — and we own that completely.
+            What we bring instead of a long client list is something rarer:
+            <strong>certified engineers who chose to build something of their own</strong>
+            because they knew they could do it better.
+          </p>
+          <p>
+            We were trained in enterprise environments. We know how large-scale
+            infrastructure fails, why security gets overlooked, and what it costs
+            when development teams don't communicate with operations.
+            <strong>We carry that knowledge into every engagement — regardless of your size.</strong>
+          </p>
+          <p>
+            Being new means you are not a number in our pipeline.
+            You are the reason we show up. Every deadline, every deployment,
+            every support call gets our complete attention — because your success
+            is how we build ours.
+          </p>
+        </div>
+ 
+        <div class="manifesto-quote">
+          <p>
+            "You don't need a vendor with a thousand clients who half-knows your stack.<br>
+            You need engineers who are fully invested in making you succeed —<br>
+            and that is exactly what we are."
+          </p>
+        </div>
       </div>
-      
-      <div class="about-grid">
-        <div class="glass-card about-card" data-aos="fade-up" data-aos-delay="100">
-          <div class="about-card-icon">🎯</div>
-          <h4>Our Vision</h4>
-          <p>
-            To redefine the future through advanced, user-focused technology that inspires progress and innovation across South Africa and beyond.
-          </p>
+ 
+      <!-- RIGHT: Capability Nodes -->
+      <div class="capability-nodes" data-aos="fade-left" data-aos-delay="150">
+ 
+        <!-- Node 1 -->
+        <div class="node">
+          <div class="node-header">
+            <div class="node-icon">
+              <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            </div>
+            <div class="node-title-wrap">
+              <div class="node-title">AI-Augmented Development</div>
+              <div class="node-tag">Web · Mobile · Automation</div>
+            </div>
+            <div class="node-status"><span class="status-dot"></span>Active</div>
+          </div>
+          <div class="node-body">
+            We build digital products that work smarter — embedding AI where it genuinely
+            accelerates outcomes, not just as a feature, but as a foundation.
+          </div>
+          <div class="node-tags">
+            <span class="tech-tag">Next.js</span>
+            <span class="tech-tag">React</span>
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">OpenAI API</span>
+            <span class="tech-tag">LLM Integration</span>
+          </div>
         </div>
-        
-        <div class="glass-card about-card" data-aos="fade-up" data-aos-delay="200">
-          <div class="about-card-icon">🚀</div>
-          <h4>Our Mission</h4>
-          <p>
-            Building transformative digital solutions that are fast, scalable, and tailored to empower businesses of all sizes to thrive in the digital age.
-          </p>
+ 
+        <!-- Node 2 -->
+        <div class="node">
+          <div class="node-header">
+            <div class="node-icon">
+              <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4.03 3-9 3S3 13.66 3 12"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/></svg>
+            </div>
+            <div class="node-title-wrap">
+              <div class="node-title">Linux & Cloud Infrastructure</div>
+              <div class="node-tag">Servers · DevOps · Cloud</div>
+            </div>
+            <div class="node-status"><span class="status-dot"></span>Active</div>
+          </div>
+          <div class="node-body">
+            Certified Linux engineers managing production environments that don't sleep.
+            From bare-metal to cloud-native — we architect for reliability, scale and security.
+          </div>
+          <div class="node-tags">
+            <span class="tech-tag">Ubuntu / RHEL</span>
+            <span class="tech-tag">Docker</span>
+            <span class="tech-tag">Kubernetes</span>
+            <span class="tech-tag">AWS</span>
+            <span class="tech-tag">CI/CD</span>
+          </div>
         </div>
-        
-        <div class="glass-card about-card" data-aos="fade-up" data-aos-delay="300">
-          <div class="about-card-icon">💎</div>
-          <h4>Our Values</h4>
-          <p>
-            Innovation. Integrity. Excellence. Collaboration. We believe in doing great work with purpose, passion, and unwavering commitment to quality.
-          </p>
+ 
+        <!-- Node 3 -->
+        <div class="node">
+          <div class="node-header">
+            <div class="node-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="node-title-wrap">
+              <div class="node-title">Cybersecurity & Compliance</div>
+              <div class="node-tag">Audit · Harden · Monitor</div>
+            </div>
+            <div class="node-status"><span class="status-dot"></span>Active</div>
+          </div>
+          <div class="node-body">
+            In a world where a single breach costs everything, we build security into the
+            architecture from day one — not bolted on at the end.
+          </div>
+          <div class="node-tags">
+            <span class="tech-tag">Penetration Testing</span>
+            <span class="tech-tag">POPIA</span>
+            <span class="tech-tag">Firewall Config</span>
+            <span class="tech-tag">SIEM</span>
+          </div>
         </div>
+ 
+        <!-- Node 4 -->
+        <div class="node">
+          <div class="node-header">
+            <div class="node-icon">
+              <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <div class="node-title-wrap">
+              <div class="node-title">Performance & Monitoring</div>
+              <div class="node-tag">Uptime · Analytics · Alerts</div>
+            </div>
+            <div class="node-status"><span class="status-dot"></span>Active</div>
+          </div>
+          <div class="node-body">
+            We don't hand over and walk away. Continuous monitoring, proactive alerts,
+            and real-time performance analytics keep your systems sharp around the clock.
+          </div>
+          <div class="node-tags">
+            <span class="tech-tag">Grafana</span>
+            <span class="tech-tag">Prometheus</span>
+            <span class="tech-tag">Uptime Kuma</span>
+            <span class="tech-tag">Nginx</span>
+          </div>
+        </div>
+ 
       </div>
     </div>
-  </section>
+ 
+    <!-- Stat Bar -->
+    <div class="stat-bar" data-aos="fade-up" data-aos-delay="200">
+      <div class="stat-item">
+        <div class="stat-number"><span class="count" data-target="100">0</span><span class="stat-suffix">%</span></div>
+        <div class="stat-label">Client Focus — Always</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number"><span class="count" data-target="24">0</span><span class="stat-suffix">/7</span></div>
+        <div class="stat-label">Support Available</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number"><span class="count" data-target="15">0</span><span class="stat-suffix">+</span></div>
+        <div class="stat-label">Technologies Mastered</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number"><span class="count" data-target="1">0</span><span class="stat-suffix">st</span></div>
+        <div class="stat-label">Client Gets Same Energy as the Last</div>
+      </div>
+    </div>
+ 
+  </div>
+</section>
 
   <!-- Services Section -->
   <section id="services">
@@ -1819,6 +2284,40 @@
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+/* Count-up on scroll into view */
+(function() {
+  const counters = document.querySelectorAll('.count');
+  let triggered = false;
+ 
+  function runCounters() {
+    counters.forEach(el => {
+      const target = +el.dataset.target;
+      const duration = 1600;
+      const step = target / (duration / 16);
+      let current = 0;
+      const timer = setInterval(() => {
+        current += step;
+        if (current >= target) { current = target; clearInterval(timer); }
+        el.textContent = Math.floor(current);
+      }, 16);
+    });
+  }
+ 
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting && !triggered) {
+        triggered = true;
+        runCounters();
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.3 });
+ 
+  const statBar = document.querySelector('.stat-bar');
+  if (statBar) observer.observe(statBar);
+})();
+</script>
   <script>
   const navbar = document.getElementById('navbar');
   const hamburger = document.getElementById('hamburger');
