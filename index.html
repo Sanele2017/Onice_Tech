@@ -1466,66 +1466,537 @@
     .node-body, .node-tags { padding-left: 0; margin-top: 0.5rem; }
   }
     /* Services Section */
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 2rem;
-    }
-
-    .service-card {
-      position: relative;
-      overflow: hidden;
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      transition: all 0.4s ease;
-    }
-
-    .service-card-image {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-
-    .service-card:hover .service-card-image {
-      transform: scale(1.1);
-    }
-
-    .service-card-content {
-      padding: 2rem;
-      position: relative;
-      z-index: 2;
-      background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 100%);
-    }
-
-    .service-card h3 {
-      font-size: 1.5rem;
-      color: #fff;
-      margin-bottom: 1rem;
-      font-weight: 600;
-    }
-
-    .service-card p {
-      color: var(--text-muted);
-      line-height: 1.7;
-    }
-
-    .service-icon {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      width: 50px;
-      height: 50px;
-      background: rgba(0, 174, 254, 0.2);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.5rem;
-      color: var(--primary-color);
-      backdrop-filter: blur(10px);
-    }
+   body {
+  background: var(--void);
+  font-family: 'Syne', sans-serif;
+  color: #fff;
+}
+ 
+/* ══════════════════════════════
+   SECTION SHELL
+══════════════════════════════ */
+#services {
+  position: relative;
+  padding: 120px 0 110px;
+  overflow: hidden;
+}
+ 
+/* Bottom-left ambient glow */
+#services::before {
+  content: '';
+  position: absolute;
+  bottom: -150px; left: -150px;
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(0,174,254,0.055) 0%, transparent 65%);
+  pointer-events: none;
+}
+ 
+/* Top-right ambient glow */
+#services::after {
+  content: '';
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(0,212,255,0.04) 0%, transparent 65%);
+  pointer-events: none;
+}
+ 
+.solutions-container {
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 0 3rem;
+  position: relative;
+  z-index: 2;
+}
+ 
+/* ══════════════════════════════
+   SECTION HEADER
+══════════════════════════════ */
+.sol-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  margin-bottom: 4.5rem;
+  gap: 2rem;
+}
+ 
+.sol-header-left {}
+ 
+.sol-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+ 
+.sol-eyebrow-line {
+  width: 36px; height: 1px;
+  background: linear-gradient(90deg, var(--ice), transparent);
+}
+ 
+.sol-eyebrow-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem;
+  font-weight: 300;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(0,174,254,0.55);
+}
+ 
+.sol-eyebrow-index {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.58rem;
+  color: rgba(0,174,254,0.22);
+  letter-spacing: 0.1em;
+}
+ 
+.sol-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  letter-spacing: 0.03em;
+  line-height: 1;
+  background: linear-gradient(135deg, #fff 0%, #c8e8f8 40%, var(--cryo) 70%, var(--ice) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+ 
+.sol-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-body);
+  max-width: 500px;
+  line-height: 1.8;
+  margin-top: 1rem;
+}
+ 
+.sol-header-right {
+  text-align: right;
+  padding-bottom: 0.25rem;
+}
+ 
+.sol-count {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 5rem;
+  letter-spacing: 0.02em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(0,174,254,0.15);
+  line-height: 1;
+}
+ 
+.sol-count-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(0,174,254,0.3);
+  margin-top: -0.3rem;
+}
+ 
+/* ══════════════════════════════
+   MISSION GRID
+══════════════════════════════ */
+.mission-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 1.2rem;
+}
+ 
+/* Card 1 spans full width */
+.mission-card:nth-child(1) {
+  grid-column: 1 / -1;
+}
+ 
+/* ══════════════════════════════
+   MISSION CARD
+══════════════════════════════ */
+.mission-card {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid rgba(0,174,254,0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: default;
+  transition: border-color 0.4s ease, transform 0.4s cubic-bezier(0.23,1,0.32,1);
+}
+ 
+.mission-card:hover {
+  border-color: rgba(0,174,254,0.35);
+  transform: translateY(-4px);
+}
+ 
+/* Animated border trace on hover */
+.mission-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  background: linear-gradient(135deg,
+    rgba(0,174,254,0) 0%,
+    rgba(0,174,254,0.08) 40%,
+    rgba(0,212,255,0.05) 60%,
+    rgba(0,174,254,0) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+ 
+.mission-card:hover::before { opacity: 1; }
+ 
+/* Top accent gradient */
+.card-top-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--ice), var(--cryo), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+ 
+.mission-card:hover .card-top-bar { opacity: 1; }
+ 
+/* ── Ghost number background ── */
+.card-ghost-num {
+  position: absolute;
+  bottom: -1rem;
+  right: 1.5rem;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 11rem;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(0,174,254,0.06);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  transition: -webkit-text-stroke-color 0.4s ease;
+}
+ 
+.mission-card:hover .card-ghost-num {
+  -webkit-text-stroke-color: rgba(0,174,254,0.12);
+}
+ 
+/* ── Geometric SVG bg accent ── */
+.card-geo {
+  position: absolute;
+  top: 0; right: 0;
+  width: 280px; height: 280px;
+  opacity: 0.035;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+ 
+.mission-card:hover .card-geo { opacity: 0.07; }
+ 
+/* ── Card inner ── */
+.card-inner {
+  position: relative;
+  z-index: 2;
+  padding: 2.2rem 2.5rem;
+}
+ 
+/* Wide card (first) layout */
+.mission-card:nth-child(1) .card-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+ 
+/* ── Card left col ── */
+.card-left {}
+ 
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1.2rem;
+}
+ 
+.card-index {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.6rem;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  color: rgba(0,174,254,0.5);
+}
+ 
+.card-status {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(0,212,255,0.45);
+}
+ 
+.card-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #00ff88;
+  box-shadow: 0 0 6px #00ff88;
+  animation: dp 2.5s ease-in-out infinite;
+}
+ 
+@keyframes dp {
+  0%,100% { opacity:1; transform:scale(1); }
+  50%      { opacity:0.3; transform:scale(0.6); }
+}
+ 
+.card-icon-wrap {
+  width: 52px; height: 52px;
+  background: rgba(0,174,254,0.07);
+  border: 1px solid rgba(0,174,254,0.2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.3rem;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+ 
+.mission-card:hover .card-icon-wrap {
+  background: rgba(0,174,254,0.12);
+  border-color: rgba(0,174,254,0.4);
+}
+ 
+.card-icon-wrap svg {
+  width: 22px; height: 22px;
+  stroke: var(--cryo);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+ 
+.card-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  letter-spacing: 0.04em;
+  color: #fff;
+  line-height: 1.05;
+  margin-bottom: 0.8rem;
+}
+ 
+.card-desc {
+  font-size: 0.88rem;
+  line-height: 1.8;
+  color: var(--text-body);
+  margin-bottom: 1.5rem;
+}
+ 
+/* ── What's included list ── */
+.card-right {}
+ 
+.includes-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.55rem;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(0,174,254,0.4);
+  margin-bottom: 1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid rgba(0,174,254,0.08);
+}
+ 
+.includes-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  margin-bottom: 1.8rem;
+}
+ 
+.includes-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  font-size: 0.82rem;
+  color: rgba(190, 215, 235, 0.75);
+  line-height: 1.5;
+}
+ 
+.includes-list li::before {
+  content: '';
+  flex-shrink: 0;
+  width: 14px; height: 14px;
+  margin-top: 2px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M2 7l3.5 3.5L12 4' stroke='%2300AEFE' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+ 
+/* Tech tags */
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.8rem;
+}
+ 
+.card-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.52rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(0,174,254,0.6);
+  background: rgba(0,174,254,0.05);
+  border: 1px solid rgba(0,174,254,0.14);
+  padding: 3px 9px;
+  border-radius: 3px;
+}
+ 
+/* CTA */
+.card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.7rem 1.6rem;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--void);
+  background: linear-gradient(135deg, var(--ice), var(--cryo));
+  border-radius: 4px;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 24px rgba(0,174,254,0.3), inset 0 1px 0 rgba(255,255,255,0.25);
+  overflow: hidden;
+  position: relative;
+}
+ 
+.card-cta::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+  transition: left 0.45s ease;
+}
+ 
+.card-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 40px rgba(0,174,254,0.55), inset 0 1px 0 rgba(255,255,255,0.3);
+}
+ 
+.card-cta:hover::before { left: 100%; }
+ 
+.cta-arrow {
+  transition: transform 0.3s ease;
+}
+ 
+.card-cta:hover .cta-arrow { transform: translateX(4px); }
+ 
+/* Ghost CTA variant */
+.card-cta-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.65rem 1.4rem;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: rgba(0,174,254,0.8);
+  background: rgba(0,174,254,0.05);
+  border: 1px solid rgba(0,174,254,0.22);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+ 
+.card-cta-ghost:hover {
+  color: #fff;
+  background: rgba(0,174,254,0.12);
+  border-color: rgba(0,174,254,0.5);
+  box-shadow: 0 0 18px rgba(0,174,254,0.2);
+}
+ 
+/* For single-col cards, we use a simpler layout */
+.mission-card:not(:nth-child(1)) .card-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+ 
+.mission-card:not(:nth-child(1)) .card-right {
+  flex: 1;
+}
+ 
+/* ══════════════════════════════
+   BOTTOM BANNER
+══════════════════════════════ */
+.solutions-footer {
+  margin-top: 3rem;
+  position: relative;
+  padding: 2.5rem 3rem;
+  background: rgba(0,174,254,0.04);
+  border: 1px solid rgba(0,174,254,0.12);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+ 
+.solutions-footer::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--ice), var(--cryo), transparent);
+  animation: footerLine 4s linear infinite;
+  background-size: 200% 100%;
+}
+ 
+@keyframes footerLine {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+ 
+.footer-text h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.8rem;
+  letter-spacing: 0.06em;
+  color: #fff;
+  margin-bottom: 0.3rem;
+}
+ 
+.footer-text p {
+  font-size: 0.85rem;
+  color: var(--text-body);
+  max-width: 480px;
+  line-height: 1.7;
+}
+ 
+/* ══════════════════════════════
+   RESPONSIVE
+══════════════════════════════ */
+@media (max-width: 1000px) {
+  .mission-card:nth-child(1) .card-inner {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .sol-header { grid-template-columns: 1fr; }
+  .sol-header-right { display: none; }
+}
+ 
+@media (max-width: 760px) {
+  .mission-grid { grid-template-columns: 1fr; }
+  .mission-card:nth-child(1) { grid-column: 1; }
+  .solutions-container { padding: 0 1.25rem; }
+  .card-inner { padding: 1.6rem 1.5rem; }
+  .card-ghost-num { font-size: 7rem; }
+  .solutions-footer { padding: 1.8rem 1.5rem; flex-direction: column; }
+}
 
     /* Why Choose Section */
     .why-grid {
@@ -2070,67 +2541,260 @@
 
   <!-- Services Section -->
   <section id="services">
-    <div class="container">
-      <div class="section-title" data-aos="fade-up">
-        <h2>Our Solutions</h2>
-        <p>Comprehensive IT services tailored to your business needs</p>
+<div class="solutions-container">
+ 
+  <!-- ── HEADER ── -->
+  <div class="sol-header" data-aos="fade-up">
+    <div class="sol-header-left">
+      <div class="sol-eyebrow">
+        <div class="sol-eyebrow-line"></div>
+        <span class="sol-eyebrow-text">What We Deploy</span>
+        <span class="sol-eyebrow-index">03 / 05</span>
       </div>
-      
-      <div class="services-grid">
-        <div class="service-card" data-aos="fade-up" data-aos-delay="100">
-          <div class="service-icon"><i class="bi bi-hdd-network"></i></div>
-          <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=500&h=300&fit=crop" alt="IT Support" class="service-card-image" />
-          <div class="service-card-content">
-            <h3>IT Support & Maintenance</h3>
-            <p>Comprehensive help desk services, system monitoring, security updates, and proactive maintenance to keep your business running smoothly.</p>
+      <h2 class="sol-title">Our Solutions</h2>
+      <p class="sol-subtitle">
+        Every engagement is treated as a mission. We identify the problem,
+        design the right solution, and execute with precision — no bloated
+        proposals, no wasted time.
+      </p>
+    </div>
+    <div class="sol-header-right">
+      <div class="sol-count">04</div>
+      <div class="sol-count-label">Active Disciplines</div>
+    </div>
+  </div>
+ 
+  <!-- ── MISSION GRID ── -->
+  <div class="mission-grid">
+ 
+    <!-- ═══ CARD 1 — Web & AI Development (HERO CARD) ═══ -->
+    <div class="mission-card" data-aos="fade-up" data-aos-delay="50">
+      <div class="card-top-bar"></div>
+      <div class="card-ghost-num">01</div>
+      <!-- Geometric accent -->
+      <svg class="card-geo" viewBox="0 0 280 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="220" cy="60" r="120" stroke="#00AEFE" stroke-width="0.8"/>
+        <circle cx="220" cy="60" r="80"  stroke="#00D4FF" stroke-width="0.5"/>
+        <circle cx="220" cy="60" r="40"  stroke="#00AEFE" stroke-width="0.6"/>
+        <line x1="100" y1="60" x2="340" y2="60" stroke="#00AEFE" stroke-width="0.4"/>
+        <line x1="220" y1="-60" x2="220" y2="180" stroke="#00D4FF" stroke-width="0.4"/>
+      </svg>
+ 
+      <div class="card-inner">
+        <div class="card-left">
+          <div class="card-meta">
+            <span class="card-index">MISSION — 01</span>
+            <div class="card-status"><span class="card-dot"></span>Available</div>
           </div>
-        </div>
-        
-        <div class="service-card" data-aos="fade-up" data-aos-delay="500">
-          <div class="service-icon"><i class="bi bi-code-square"></i></div>
-          <img src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=500&h=300&fit=crop" alt="Custom Software" class="service-card-image" />
-          <div class="service-card-content">
-            <h3>Custom Software Development</h3>
-            <p>Bespoke software solutions designed to fit your unique business processes. From concept to deployment with full documentation.</p>
+          <div class="card-icon-wrap">
+            <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
           </div>
+          <h3 class="card-title">Web & AI-Powered<br>Development</h3>
+          <p class="card-desc">
+            We build digital products that don't just look good — they think. From
+            blazing-fast websites to full-stack web applications with AI integrations
+            baked into the core, we engineer for speed, scale, and intelligence.
+            If your competitor's site is a brochure, yours will be a weapon.
+          </p>
+          <a href="#contact" class="card-cta">
+            Start This Mission <span class="cta-arrow">→</span>
+          </a>
         </div>
-        
-        <div class="service-card" data-aos="fade-up" data-aos-delay="600">
-          <div class="service-icon"><i class="bi bi-lightbulb"></i></div>
-          <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=300&fit=crop" alt="IT Consulting" class="service-card-image" />
-          <div class="service-card-content">
-            <h3>IT Consulting & Strategy</h3>
-            <p>Expert insights, infrastructure audits, and strategic planning tailored for growth. Make informed technology decisions with confidence.</p>
+ 
+        <div class="card-right">
+          <div class="includes-label">&gt; What's Included</div>
+          <ul class="includes-list">
+            <li>Custom website & web application development</li>
+            <li>AI chatbot & automation integration</li>
+            <li>REST API design, build & documentation</li>
+            <li>CMS setup — WordPress, Headless, custom builds</li>
+            <li>Performance optimisation & Core Web Vitals</li>
+            <li>Mobile-first, fully responsive design</li>
+            <li>SEO architecture & structured data markup</li>
+          </ul>
+          <div class="card-tags">
+            <span class="card-tag">Next.js</span>
+            <span class="card-tag">React</span>
+            <span class="card-tag">Node.js</span>
+            <span class="card-tag">Python</span>
+            <span class="card-tag">OpenAI API</span>
+            <span class="card-tag">WordPress</span>
+            <span class="card-tag">PostgreSQL</span>
           </div>
-        </div>
-        <div class="service-card" data-aos="fade-up" data-aos-delay="200">
-          <div class="service-icon"><i class="bi bi-laptop"></i></div>
-          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop" alt="Web Development" class="service-card-image" />
-          <div class="service-card-content">
-            <h3>Web Development</h3>
-            <p>Modern, responsive websites that reflect your brand. Custom solutions built with cutting-edge technologies to drive real business results.</p>
-          </div>
-        </div>
-        <div class="service-card" data-aos="fade-up" data-aos-delay="300">
-          <div class="service-icon"><i class="bi bi-cloud"></i></div>
-          <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500&h=300&fit=crop" alt="Cloud Services" class="service-card-image" />
-          <div class="service-card-content">
-            <h3>Cloud Solutions</h3>
-            <p>Seamless cloud migration and management across Azure, Oracle Cloud, and hybrid environments. Scalable infrastructure that grows with you.</p>
-          </div>
-        </div>
-         <div class="service-card" data-aos="fade-up" data-aos-delay="300">
-          <div class="service-icon"><i class="bi bi-server"></i></div>
-          <img src="images/server.jpeg" alt="Linux Services" class="service-card-image" />
-          <div class="service-card-content">
-            <h3>Linux/Windows Server Management</h3>
-            <p>Enterprise-grade server setup, security hardening, performance optimization, and 24/7 monitoring for Ubuntu, SUSE, and RHEL systems.</p>
-          </div>
-        </div>
         </div>
       </div>
     </div>
-  </section>
+ 
+    <!-- ═══ CARD 2 — Linux & Cloud Infrastructure ═══ -->
+    <div class="mission-card" data-aos="fade-up" data-aos-delay="100">
+      <div class="card-top-bar"></div>
+      <div class="card-ghost-num">02</div>
+      <svg class="card-geo" viewBox="0 0 280 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="140" y="20" width="120" height="120" rx="4" stroke="#00AEFE" stroke-width="0.7" transform="rotate(15 200 80)"/>
+        <rect x="155" y="35" width="90"  height="90"  rx="4" stroke="#00D4FF" stroke-width="0.5" transform="rotate(15 200 80)"/>
+        <rect x="170" y="50" width="60"  height="60"  rx="4" stroke="#00AEFE" stroke-width="0.5" transform="rotate(15 200 80)"/>
+      </svg>
+ 
+      <div class="card-inner">
+        <div class="card-left">
+          <div class="card-meta">
+            <span class="card-index">MISSION — 02</span>
+            <div class="card-status"><span class="card-dot"></span>Available</div>
+          </div>
+          <div class="card-icon-wrap">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+          </div>
+          <h3 class="card-title">Linux & Cloud<br>Infrastructure</h3>
+          <p class="card-desc">
+            Your infrastructure is the foundation everything runs on. We design,
+            deploy and manage Linux servers and cloud environments that are
+            hardened, optimised, and built to handle whatever you throw at them —
+            including the unexpected.
+          </p>
+        </div>
+        <div class="card-right">
+          <div class="includes-label">&gt; What's Included</div>
+          <ul class="includes-list">
+            <li>Linux server setup, configuration & hardening</li>
+            <li>Cloud architecture on AWS, Azure or GCP</li>
+            <li>Docker containerisation & Kubernetes orchestration</li>
+            <li>CI/CD pipeline setup & automation</li>
+            <li>Backup strategies & disaster recovery planning</li>
+            <li>DNS, mail server & domain configuration</li>
+          </ul>
+          <div class="card-tags">
+            <span class="card-tag">Ubuntu</span>
+            <span class="card-tag">RHEL</span>
+            <span class="card-tag">Docker</span>
+            <span class="card-tag">Kubernetes</span>
+            <span class="card-tag">AWS</span>
+            <span class="card-tag">Nginx</span>
+          </div>
+          <a href="#contact" class="card-cta-ghost">
+            Deploy Infrastructure →
+          </a>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- ═══ CARD 3 — Cybersecurity ═══ -->
+    <div class="mission-card" data-aos="fade-up" data-aos-delay="150">
+      <div class="card-top-bar"></div>
+      <div class="card-ghost-num">03</div>
+      <svg class="card-geo" viewBox="0 0 280 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="220,20 260,50 260,130 220,160 180,130 180,50" stroke="#00AEFE" stroke-width="0.7"/>
+        <polygon points="220,40 248,62 248,122 220,144 192,122 192,62" stroke="#00D4FF" stroke-width="0.5"/>
+        <polygon points="220,60 236,74 236,114 220,128 204,114 204,74" stroke="#00AEFE" stroke-width="0.4"/>
+      </svg>
+ 
+      <div class="card-inner">
+        <div class="card-left">
+          <div class="card-meta">
+            <span class="card-index">MISSION — 03</span>
+            <div class="card-status"><span class="card-dot"></span>Available</div>
+          </div>
+          <div class="card-icon-wrap">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3 class="card-title">Cybersecurity<br>& Compliance</h3>
+          <p class="card-desc">
+            A breach doesn't announce itself — it exploits what you ignored.
+            We find those gaps before attackers do, lock them down, and keep you
+            compliant with South African data protection law so you can operate
+            with confidence, not anxiety.
+          </p>
+        </div>
+        <div class="card-right">
+          <div class="includes-label">&gt; What's Included</div>
+          <ul class="includes-list">
+            <li>Vulnerability assessments & penetration testing</li>
+            <li>POPIA compliance audit & implementation</li>
+            <li>Firewall configuration & network segmentation</li>
+            <li>SSL/TLS hardening & certificate management</li>
+            <li>Security incident response planning</li>
+            <li>Staff security awareness training</li>
+          </ul>
+          <div class="card-tags">
+            <span class="card-tag">POPIA</span>
+            <span class="card-tag">Nmap</span>
+            <span class="card-tag">Fail2Ban</span>
+            <span class="card-tag">UFW</span>
+            <span class="card-tag">SSL Labs</span>
+          </div>
+          <a href="#contact" class="card-cta-ghost">
+            Secure Your Stack →
+          </a>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- ═══ CARD 4 — Monitoring & Support ═══ -->
+    <div class="mission-card" data-aos="fade-up" data-aos-delay="200">
+      <div class="card-top-bar"></div>
+      <div class="card-ghost-num">04</div>
+      <svg class="card-geo" viewBox="0 0 280 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M140 20 Q200 60 240 80 Q260 140 240 180 Q200 220 140 240 Q80 220 40 180 Q20 140 40 80 Q80 60 140 20Z" stroke="#00AEFE" stroke-width="0.7"/>
+        <path d="M140 40 Q190 72 224 90 Q242 140 224 172 Q190 208 140 224 Q90 208 56 172 Q38 140 56 90 Q90 72 140 40Z" stroke="#00D4FF" stroke-width="0.5"/>
+      </svg>
+ 
+      <div class="card-inner">
+        <div class="card-left">
+          <div class="card-meta">
+            <span class="card-index">MISSION — 04</span>
+            <div class="card-status"><span class="card-dot"></span>Available</div>
+          </div>
+          <div class="card-icon-wrap">
+            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <h3 class="card-title">Monitoring,<br>Support & Uptime</h3>
+          <p class="card-desc">
+            We stay on after everyone else has left. Real-time monitoring,
+            intelligent alerts, and a support team that actually responds — because
+            your systems don't rest at 5pm, and neither do we.
+          </p>
+        </div>
+        <div class="card-right">
+          <div class="includes-label">&gt; What's Included</div>
+          <ul class="includes-list">
+            <li>24/7 uptime monitoring & instant alerting</li>
+            <li>Real-time server performance dashboards</li>
+            <li>Log aggregation, analysis & anomaly detection</li>
+            <li>Scheduled maintenance & patch management</li>
+            <li>Dedicated support with defined response times</li>
+            <li>Monthly performance & health reports</li>
+          </ul>
+          <div class="card-tags">
+            <span class="card-tag">Grafana</span>
+            <span class="card-tag">Prometheus</span>
+            <span class="card-tag">Uptime Kuma</span>
+            <span class="card-tag">Loki</span>
+            <span class="card-tag">PagerDuty</span>
+          </div>
+          <a href="#contact" class="card-cta-ghost">
+            Get Covered →
+          </a>
+        </div>
+      </div>
+    </div>
+ 
+  </div><!-- /mission-grid -->
+ 
+  <!-- ── BOTTOM BANNER ── -->
+  <div class="solutions-footer" data-aos="fade-up" data-aos-delay="100">
+    <div class="footer-text">
+      <h3>Not sure which solution fits your problem?</h3>
+      <p>
+        Most of our best work starts with a conversation, not a brief.
+        Tell us where you are and where you want to be — we'll figure out the rest together.
+      </p>
+    </div>
+    <a href="#contact" class="card-cta" style="flex-shrink:0;">
+      Let's Talk &nbsp;<span class="cta-arrow">→</span>
+    </a>
+  </div>
+ 
+</div>
+</section>
 
   <!-- Why Choose Section -->
   <section id="why-choose">
