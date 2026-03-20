@@ -104,67 +104,445 @@
     }
 
     /* Enhanced Navbar */
-    .navbar {
-      background: rgba(0, 0, 0, 0.8) !important;
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(0, 174, 254, 0.1);
-      padding: 1rem 0;
-      transition: all 0.3s ease;
-    }
-
-    .navbar.scrolled {
-      padding: 0.5rem 0;
-      box-shadow: 0 5px 30px rgba(0, 174, 254, 0.3);
-    }
-
-    .navbar-brand {
-      font-weight: 700;
-      font-size: 1.4rem;
-      color: var(--primary-color) !important;
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
-      transition: transform 0.3s ease;
-    }
-
-    .navbar-brand:hover {
-      transform: scale(1.05);
-    }
-
-    .navbar-brand img {
-      width: 45px;
-      height: 45px;
-      filter: drop-shadow(0 0 10px var(--primary-color));
-    }
-
-    .nav-link {
-      color: var(--text-light) !important;
-      font-weight: 500;
-      margin: 0 0.8rem;
-      position: relative;
-      transition: color 0.3s ease;
-    }
-
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0;
-      height: 2px;
-      background: var(--primary-color);
-      transition: width 0.3s ease;
-    }
-
-    .nav-link:hover::after,
-    .nav-link.active::after {
-      width: 80%;
-    }
-
-    .nav-link:hover {
-      color: var(--primary-color) !important;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+  :root {
+    --ice: #00AEFE;
+    --ice-dim: rgba(0,174,254,0.15);
+    --ice-glow: rgba(0,174,254,0.45);
+    --ice-hard: rgba(0,174,254,0.8);
+    --cryo: #00D4FF;
+    --frost: rgba(255,255,255,0.04);
+    --void: #050a12;
+    --glass: rgba(6, 15, 28, 0.75);
+  }
+ 
+  body {
+    background: var(--void);
+    font-family: 'Syne', sans-serif;
+    min-height: 200vh;
+  }
+ 
+  /* ── NAVBAR SHELL ── */
+  .navbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 0;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+ 
+  /* animated aurora border */
+  .navbar::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--glass);
+    backdrop-filter: blur(24px) saturate(1.8);
+    -webkit-backdrop-filter: blur(24px) saturate(1.8);
+    border-bottom: 1px solid transparent;
+    background-clip: padding-box;
+    z-index: -2;
+  }
+ 
+  .navbar::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--ice-dim) 15%,
+      var(--ice) 35%,
+      var(--cryo) 50%,
+      var(--ice) 65%,
+      var(--ice-dim) 85%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: borderFlow 4s linear infinite;
+    z-index: -1;
+  }
+ 
+  @keyframes borderFlow {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+ 
+  /* scan line sweep */
+  .navbar-scan {
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(0,174,254,0.04) 40%,
+      rgba(0,212,255,0.09) 50%,
+      rgba(0,174,254,0.04) 60%,
+      transparent
+    );
+    animation: scan 6s ease-in-out infinite 2s;
+    pointer-events: none;
+    z-index: 1;
+  }
+ 
+  @keyframes scan {
+    0%   { left: -60%; }
+    100% { left: 160%; }
+  }
+ 
+  .navbar-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 72px;
+    transition: height 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    position: relative;
+    z-index: 2;
+  }
+ 
+  /* ── SCROLLED STATE ── */
+  .navbar.scrolled .navbar-inner {
+    height: 56px;
+  }
+  .navbar.scrolled::before {
+    background: rgba(5, 10, 18, 0.92);
+  }
+  .navbar.scrolled::after {
+    box-shadow: 0 0 40px rgba(0,174,254,0.2);
+  }
+ 
+  /* ── BRAND ── */
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    text-decoration: none;
+    position: relative;
+  }
+ 
+  .brand-icon-wrap {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+  }
+ 
+  .brand-icon-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 12px;
+    background: conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      var(--ice) 60deg,
+      var(--cryo) 120deg,
+      transparent 180deg,
+      transparent 240deg,
+      var(--ice) 300deg,
+      transparent 360deg
+    );
+    animation: logoSpin 4s linear infinite;
+    opacity: 0.7;
+  }
+ 
+  .brand-icon-wrap::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 12px;
+    background: var(--void);
+    z-index: 0;
+    margin: 2px;
+  }
+ 
+  @keyframes logoSpin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+ 
+  .brand-icon-wrap img {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 0 8px var(--ice-glow)) brightness(1.1);
+    border-radius: 8px;
+  }
+ 
+  /* Fallback if no SVG: an "O" crystal glyph */
+  .brand-icon-fallback {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--cryo);
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, rgba(0,174,254,0.12), rgba(0,212,255,0.06));
+    border-radius: 8px;
+    border: 1px solid rgba(0,174,254,0.3);
+    text-shadow: 0 0 12px var(--ice);
+  }
+ 
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+ 
+  .brand-name {
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #fff 30%, var(--cryo) 70%, var(--ice) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+ 
+  .brand-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(0,174,254,0.6);
+    margin-top: 2px;
+  }
+ 
+  /* ── NAV LINKS ── */
+  .nav-list {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    list-style: none;
+  }
+ 
+  .nav-item { position: relative; }
+ 
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 1rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(200, 220, 240, 0.7);
+    text-decoration: none;
+    position: relative;
+    border-radius: 6px;
+    transition: color 0.3s ease;
+    overflow: hidden;
+  }
+ 
+  /* glide fill on hover */
+  .nav-link::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,174,254,0.1), rgba(0,212,255,0.06));
+    border-radius: 6px;
+    border: 1px solid rgba(0,174,254,0.2);
+    opacity: 0;
+    transform: scale(0.85);
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+ 
+  .nav-link:hover::before,
+  .nav-link.active::before {
+    opacity: 1;
+    transform: scale(1);
+  }
+ 
+  /* bottom bar */
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 60%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--ice), var(--cryo));
+    border-radius: 2px 2px 0 0;
+    transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow: 0 0 8px var(--ice);
+  }
+ 
+  .nav-link:hover::after,
+  .nav-link.active::after {
+    transform: translateX(-50%) scaleX(1);
+  }
+ 
+  .nav-link:hover,
+  .nav-link.active {
+    color: #fff;
+  }
+ 
+  /* small index number glyph */
+  .nav-index {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.52rem;
+    font-weight: 300;
+    color: rgba(0,174,254,0.4);
+    letter-spacing: 0;
+    transition: color 0.3s ease;
+    line-height: 1;
+    margin-top: 1px;
+  }
+ 
+  .nav-link:hover .nav-index,
+  .nav-link.active .nav-index {
+    color: var(--cryo);
+  }
+ 
+  /* ── CTA BUTTON ── */
+  .nav-cta {
+    position: relative;
+    padding: 0.5rem 1.2rem;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--void);
+    text-decoration: none;
+    background: linear-gradient(135deg, var(--ice), var(--cryo));
+    border-radius: 6px;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 20px rgba(0,174,254,0.35), inset 0 1px 0 rgba(255,255,255,0.25);
+    overflow: hidden;
+    margin-left: 0.5rem;
+    white-space: nowrap;
+  }
+ 
+  .nav-cta::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s ease;
+  }
+ 
+  .nav-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 30px rgba(0,174,254,0.6), 0 4px 20px rgba(0,174,254,0.3), inset 0 1px 0 rgba(255,255,255,0.3);
+  }
+ 
+  .nav-cta:hover::before {
+    left: 100%;
+  }
+ 
+  /* ── HAMBURGER ── */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 8px;
+    background: none;
+    border: none;
+    outline: none;
+  }
+ 
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: rgba(0,174,254,0.8);
+    border-radius: 2px;
+    transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+    transform-origin: center;
+  }
+ 
+  .hamburger.open span:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg);
+  }
+  .hamburger.open span:nth-child(2) {
+    opacity: 0; transform: scaleX(0);
+  }
+  .hamburger.open span:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg);
+  }
+ 
+  /* ── MOBILE MENU ── */
+  .mobile-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 1rem; right: 1rem;
+    background: rgba(6,15,28,0.96);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgba(0,174,254,0.15);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-top: 8px;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+    pointer-events: none;
+  }
+ 
+  .mobile-menu.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+  }
+ 
+  .mobile-menu .nav-list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.25rem;
+  }
+ 
+  .mobile-menu .nav-link {
+    padding: 0.7rem 1rem;
+    font-size: 0.85rem;
+  }
+ 
+  .mobile-menu .nav-cta {
+    display: block;
+    text-align: center;
+    margin: 0.5rem 0 0;
+  }
+ 
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .desktop-nav { display: none; }
+    .hamburger   { display: flex; }
+    .mobile-menu { display: block; }
+  }
+ 
+  /* ── DEMO PAGE FILL ── */
+  .page-demo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color: rgba(255,255,255,0.2);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
 
     /* Hero Section */
     #hero {
@@ -719,26 +1097,74 @@
   </div>
 
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="#hero">
-        <img src="images/onice-icon.svg" alt="Logo" />
-        <span>Technologies</span>
-      </a>
-      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link active" href="#hero">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-          <li class="nav-item"><a class="nav-link" href="#why-choose">Why Us</a></li>
-          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-        </ul>
+  <nav class="navbar" id="navbar">
+  <div class="navbar-scan"></div>
+  <div class="navbar-inner">
+ 
+    <!-- Brand -->
+    <a class="brand" href="#hero">
+      <div class="brand-icon-wrap">
+        <!-- If your SVG loads fine, use img tag below; fallback shows text glyph -->
+        <div class="brand-icon-fallback">Oi</div>
       </div>
+      <div class="brand-text">
+        <span class="brand-name">Onice</span>
+        <span class="brand-sub">Technologies</span>
+      </div>
+    </a>
+ 
+    <!-- Desktop Nav -->
+    <div class="desktop-nav">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a class="nav-link active" href="#hero">
+            <span class="nav-index">01</span>Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#about">
+            <span class="nav-index">02</span>About
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#services">
+            <span class="nav-index">03</span>Solutions
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#process">
+            <span class="nav-index">04</span>Process
+          </a>
+        </li>
+      </ul>
     </div>
-  </nav>
+ 
+    <!-- CTA -->
+    <a class="nav-cta" href="#contact">Get in Touch</a>
+ 
+    <!-- Hamburger -->
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+ 
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobile-menu">
+    <ul class="nav-list">
+      <li class="nav-item"><a class="nav-link active" href="#hero"><span class="nav-index">01</span>Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="#about"><span class="nav-index">02</span>About</a></li>
+      <li class="nav-item"><a class="nav-link" href="#services"><span class="nav-index">03</span>Solutions</a></li>
+      <li class="nav-item"><a class="nav-link" href="#process"><span class="nav-index">04</span>Process</a></li>
+    </ul>
+    <a class="nav-cta" href="#contact">Get in Touch</a>
+  </div>
+</nav>
+ 
+<!-- Page filler for scroll demo -->
+<div class="page-demo">Scroll to see scrolled state</div>
+ 
 
   <!-- Hero Section -->
   <section id="hero">
@@ -1034,6 +1460,43 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
+  const navbar = document.getElementById('navbar');
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+ 
+  // Scroll compression
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  });
+ 
+  // Hamburger toggle
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+ 
+  // Close on link click
+  mobileMenu.querySelectorAll('.nav-link, .nav-cta').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    });
+  });
+ 
+  // Active link on scroll
+  const sections = ['hero','about','services','process','contact'];
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY >= el.offsetTop - 100) current = id;
+    });
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
+    });
+  });
+</script>
+  <script>
     // Initialize AOS
     AOS.init({
       duration: 1000,
@@ -1100,43 +1563,7 @@
       });
     });
 
-    // Navbar Scroll Effect
-    let lastScroll = 0;
-    const navbar = document.querySelector('.navbar');
-
-    window.addEventListener('scroll', () => {
-      const currentScroll = window.pageYOffset;
-      
-      if (currentScroll > 100) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
-
-      lastScroll = currentScroll;
-    });
-
-    // Active Nav Link on Scroll
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('.nav-link');
-
-    window.addEventListener('scroll', () => {
-      let current = '';
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (pageYOffset >= sectionTop - 200) {
-          current = section.getAttribute('id');
-        }
-      });
-
-      navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${current}`) {
-          link.classList.add('active');
-        }
-      });
-    });
+    
 
     // Scroll to Top Button
     const scrollTopBtn = document.getElementById('scrollTop');
