@@ -4847,20 +4847,52 @@ textarea.field-input {
     }
 
     function handleSubmit(e) {
-      e.preventDefault();
-      const btn     = document.getElementById('submit-btn');
-      const overlay = document.getElementById('success-overlay');
-      const refEl   = document.getElementById('success-ref');
-      btn.classList.add('loading');
-      setTimeout(() => {
-        btn.classList.remove('loading');
-        btn.classList.add('success');
-        const ref = 'OT-' + Date.now().toString().slice(-6);
-        refEl.textContent = `REF — ${ref}`;
-        overlay.classList.add('show');
-      }, 1800);
-    }
+  e.preventDefault();
 
+  const btn     = document.getElementById('submit-btn');
+  const overlay = document.getElementById('success-overlay');
+  const refEl   = document.getElementById('success-ref');
+
+  // Grab form values
+  const name    = document.querySelector('input[autocomplete="name"]').value;
+  const company = document.querySelector('input[autocomplete="organization"]').value;
+  const email   = document.querySelector('input[autocomplete="email"]').value;
+  const phone   = document.querySelector('input[autocomplete="tel"]').value;
+  const service = document.querySelector('select').value;
+  const message = document.getElementById('message-input').value;
+  const budget  = document.querySelector('.budget-chip.selected')?.textContent || 'Not specified';
+
+  // Build WhatsApp message
+  const text = 
+`*New Mission Request — Onice Technologies*
+
+*Name:* ${name}
+*Company:* ${company || 'N/A'}
+*Email:* ${email}
+*Phone:* ${phone || 'N/A'}
+*Service:* ${service}
+*Budget:* ${budget}
+
+*Message:*
+${message}`;
+
+  const whatsappURL = `https://wa.me/27769582204?text=${encodeURIComponent(text)}`;
+
+  // Loading state
+  btn.classList.add('loading');
+
+  setTimeout(() => {
+    btn.classList.remove('loading');
+    btn.classList.add('success');
+
+    const ref = 'OT-' + Date.now().toString().slice(-6);
+    refEl.textContent = `REF — ${ref}`;
+    overlay.classList.add('show');
+
+    // Open WhatsApp
+    window.open(whatsappURL, '_blank');
+  }, 1800);
+}
     /* ── COUNT-UP ── */
     (function() {
       const counters = document.querySelectorAll('.count');
